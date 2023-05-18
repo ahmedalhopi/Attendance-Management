@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="982.0" style="-fx-background-color: 000000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.AdminHomeController">
+   <children>
+      <Label layoutX="378.0" layoutY="14.0" prefHeight="75.0" prefWidth="227.0" text="Admin Home" textFill="#2d1ed7">
+         <font>
+            <Font name="Dubai Medium" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="221.0" fitWidth="312.0" layoutX="328.0" layoutY="175.0" onMouseClicked="#goAssistants" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/assistant.jpg" />
+         </image>
+         <cursor>
+            <!--<Cursor fx:constant="HAND" />-->
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="221.0" fitWidth="249.0" layoutX="28.0" layoutY="175.0" onMouseClicked="#goCourses" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/courses.png" />
+         </image>
+         <cursor>
+            <!--<Cursor fx:constant="HAND" />-->
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="191.0" fitWidth="221.0" layoutX="705.0" layoutY="175.0" onMouseClicked="#goToConnect" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/add-course-to-assistant.png" />
+         </image>
+         <cursor>
+            <!--<Cursor fx:constant="HAND" />-->
+         </cursor>
+      </ImageView>
+      <Label layoutX="90.0" layoutY="118.0" prefHeight="35.0" prefWidth="125.0" text="Courses">
+         <font>
+            <Font name="Symbol" size="32.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="118.0" prefHeight="43.0" prefWidth="332.0" text="Assistants And Courses">
+         <font>
+            <Font name="Symbol" size="32.0" />
+         </font>
+      </Label>
+      <Label layoutX="418.0" layoutY="118.0" prefHeight="43.0" prefWidth="147.0" text="Assistants">
+         <font>
+            <Font name="Symbol" size="32.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
