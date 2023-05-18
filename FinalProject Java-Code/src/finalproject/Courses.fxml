@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="818.0" prefWidth="1386.0" style="-fx-background-color: 000000;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="finalproject.CoursesController">
+<AnchorPane id="AnchorPane" prefHeight="818.0" prefWidth="1279.0" style="-fx-background-color: 000000;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="finalproject.CoursesController">
    <children>
-      <Label layoutX="581.0" layoutY="14.0" prefHeight="66.0" prefWidth="224.0" text="Courses" textFill="#2211dd">
+      <Label layoutX="525.0" layoutY="14.0" prefHeight="66.0" prefWidth="224.0" text="Courses">
          <font>
             <Font name="Broadway" size="52.0" />
          </font>
@@ -20,12 +20,12 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <Button layoutX="280.0" layoutY="80.0" mnemonicParsing="false" onAction="#add_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #50aa3d;" text="Add Course" textFill="WHITE">
+      <Button layoutX="332.0" layoutY="80.0" mnemonicParsing="false" onAction="#add_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #50aa3d;" text="Add Course" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <TableView fx:id="tableView" layoutX="12.0" layoutY="150.0" prefHeight="647.0" prefWidth="1362.0">
+      <TableView fx:id="tableView" layoutX="12.0" layoutY="150.0" prefHeight="647.0" prefWidth="1250.0">
         <columns>
           <TableColumn fx:id="code" prefWidth="119.0" text="Code" />
           <TableColumn fx:id="course" prefWidth="217.0" text="Course" />
@@ -34,8 +34,17 @@
             <TableColumn fx:id="number_lecture" prefWidth="142.0" text="Number Lectures" />
             <TableColumn fx:id="teacher" prefWidth="136.0" text="Teacher" />
             <TableColumn fx:id="place" minWidth="0.0" prefWidth="106.0" text="Place" />
-            <TableColumn fx:id="procedure" minWidth="0.0" prefWidth="113.0" text="Procedure" />
         </columns>
       </TableView>
+      <Button layoutX="672.0" layoutY="80.0" mnemonicParsing="false" onAction="#update_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #6a329f;" text="Update Course" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="1016.0" layoutY="80.0" mnemonicParsing="false" onAction="#delete_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #db2929;" text="Delete Course" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
