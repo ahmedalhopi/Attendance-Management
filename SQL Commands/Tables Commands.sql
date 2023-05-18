@@ -38,6 +38,7 @@ CREATE TABLE lectures (
   title VARCHAR(100) NOT NULL,
   place VARCHAR(50),
   day VARCHAR(10),
+  date timestamp,
   hour_from TIME,
   hour_to TIME,
   FOREIGN KEY (course_code) REFERENCES courses (course_code)
