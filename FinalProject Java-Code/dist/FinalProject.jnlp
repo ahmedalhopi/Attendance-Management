@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FinalProject.jar" size="351169" download="eager" />
+    <jar href="FinalProject.jar" size="352808" download="eager" />
     <jar href="lib\postgresql-42.6.0.jar" size="1081604" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FinalProject" >
