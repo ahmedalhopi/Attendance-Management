@@ -1,4 +1,3 @@
-
 package finalproject;
 
 import java.net.URL;
@@ -15,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -65,14 +65,16 @@ public class CoursesController implements Initializable {
     /////////////////////////////////////////////////////////////////
     @FXML
     private Pane paneContainerUpdate;
-    
-    
-    
-    
+    @FXML
+    private Pane paneContainerDelete;
+    @FXML
+    private Button deleteBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        no_lecture_txt.setTextFormatter(createNumericTextFormatter());
     }
+
     private TextFormatter<String> createNumericTextFormatter() {
         Pattern pattern = Pattern.compile("\\d*"); // Only allow digits (0-9)
         UnaryOperator<TextFormatter.Change> filter = change -> {
@@ -84,6 +86,7 @@ public class CoursesController implements Initializable {
         };
         return new TextFormatter<>(filter);
     }
+
     public void get_courses() throws ClassNotFoundException {
         tableView.setVisible(true);
         code.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
@@ -118,12 +121,15 @@ public class CoursesController implements Initializable {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-    } ;
+    }
+
+    ;
     public void add_course() {
         paneContainer.setVisible(true);
-        no_lecture_txt.setTextFormatter(createNumericTextFormatter());
+
     }
-    public void saveDate() throws ClassNotFoundException{
+
+    public void saveDate() throws ClassNotFoundException {
         PreparedStatement pst;
         Connection conn;
         String sel = "INSERT INTO mang.courses (course_code, name, subject, book, number_lectures, teacher, place) VALUES(?, ?, ?, ?, ?, ?, ?);";
@@ -131,7 +137,6 @@ public class CoursesController implements Initializable {
             conn = DatabaseConnect.connDB();
             pst = conn.prepareStatement(sel);
             int no_lect = Integer.parseInt(no_lecture_txt.getText());
-            System.err.println(Integer.parseInt(no_lecture_txt.getText()));
             pst.setString(1, code_txt.getText());
             pst.setString(2, name_txt.getText());
             pst.setString(3, subject_txt.getText());
@@ -145,24 +150,91 @@ public class CoursesController implements Initializable {
             JOptionPane.showMessageDialog(null, ex);
             System.err.println(ex);
         }
-    };
+    }
+
+    ;
     
       public void update_course() {
-          paneContainerUpdate.setVisible(true);
-
-    };
-      
-      public void getDataForCourse(){
-          
-      };
-      
-      public void updateDate(){
-          
-      };
-      
-        public void delete_course() {
+        paneContainerUpdate.setVisible(true);
 
     }
-;
 
+    ;
+      
+      public void getDataForCourse() throws ClassNotFoundException {
+        Connection conn = DatabaseConnect.connDB();
+        System.out.println(conn);
+        PreparedStatement pst;
+        ResultSet rs;
+        String log = "select * from mang.courses where course_code = ? ";
+        try {
+            pst = conn.prepareStatement(log);
+            pst.setString(1, code_txt.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                name_txt.setText(rs.getString("name"));
+                subject_txt.setText(rs.getString("subject"));
+                book_txt.setText(rs.getString("book"));
+                no_lecture_txt.setText(rs.getString("number_lectures"));
+                teacher_txt.setText(rs.getString("teacher"));
+                place_txt.setText(rs.getString("place"));
+                deleteBtn.setDisable(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "No course has the input code");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    ;
+      
+      public void updateDate() throws ClassNotFoundException {
+        PreparedStatement pst;
+        Connection conn;
+        String sel = "UPDATE mang.courses SET name=? , subject= ?, book= ?, number_lectures=? , teacher=? , place=? WHERE course_code=? ;";
+        try {
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            int no_lect = Integer.parseInt(no_lecture_txt.getText());
+            pst.setString(1, name_txt.getText());
+            pst.setString(2, subject_txt.getText());
+            pst.setString(3, book_txt.getText());
+            pst.setInt(4, no_lect);
+            pst.setString(5, teacher_txt.getText());
+            pst.setString(6, place_txt.getText());
+            pst.setString(7, code_txt.getText());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "The data has been updated");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            System.err.println(ex);
+        }
+    }
+
+    ;
+      
+        public void delete_course() {
+        paneContainerDelete.setVisible(true);
+    }
+
+    ;
+        
+        public void deleteData() throws ClassNotFoundException {
+        JOptionPane.showMessageDialog(null, "Do you want to delete course?");
+        PreparedStatement pst;
+        Connection conn;
+        String sel = "DELETE FROM mang.courses WHERE course_code=?;";
+        try {
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            pst.setString(1, code_txt.getText());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "The Course has been deleted");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            System.err.println(ex);
+        }
+    }
+;
 }
