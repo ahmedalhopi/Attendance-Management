@@ -17,10 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.ToggleGroup;
 import javax.swing.JOptionPane;
 import javafx.scene.layout.Pane;
 
@@ -29,72 +31,78 @@ public class AssistantsController implements Initializable {
     @FXML
     private TableView<ObservableList<String>> tableView;
     @FXML
-    private TableColumn<ObservableList<String>, String> code;
+    private TableColumn<ObservableList<String>, String> number;
     @FXML
-    private TableColumn<ObservableList<String>, String> course;
+    private TableColumn<ObservableList<String>, String> name;
     @FXML
-    private TableColumn<ObservableList<String>, String> subject;
+    private TableColumn<ObservableList<String>, String> mobile;
     @FXML
-    private TableColumn<ObservableList<String>, String> book;
+    private TableColumn<ObservableList<String>, String> gender;
     @FXML
-    private TableColumn<ObservableList<String>, String> number_lecture;
+    private TableColumn<ObservableList<String>, String> living;
     @FXML
-    private TableColumn<ObservableList<String>, String> teacher;
+    private TableColumn<ObservableList<String>, String> department;
     @FXML
-    private TableColumn<ObservableList<String>, String> place;
+    private TableColumn<ObservableList<String>, String> password;
     /////////////////////////////////////////////////////////
     @FXML
     private Pane paneContainer;
     @FXML
-    private TextField code_txt;
+    private TextField number_txt;
     @FXML
     private TextField name_txt;
     @FXML
-    private TextField subject_txt;
+    private TextField department_txt;
     @FXML
-    private TextField book_txt;
+    private TextField mobile_txt;
     @FXML
-    private TextField no_lecture_txt;
+    private TextField living_txt;
     @FXML
-    private TextField teacher_txt;
+    private TextField password_txt;
     @FXML
-    private TextField place_txt;
+    private RadioButton male_radio;
+    @FXML
+    private RadioButton female_radio;
+    @FXML
+    private ToggleGroup genderInsert;
     /////////////////////////////////////////////////////////////////
     @FXML
     private Pane paneContainerUpdate;
     @FXML
-    private TextField code_txt_update;
+    private TextField number_txt_update;
     @FXML
     private TextField name_txt_update;
     @FXML
-    private TextField subject_txt_update;
+    private TextField department_txt_update;
     @FXML
-    private TextField book_txt_update;
+    private TextField mobile_txt_update;
     @FXML
-    private TextField no_lecture_txt_update;
+    private TextField living_txt_update;
     @FXML
-    private TextField teacher_txt_update;
+    private TextField password_txt_update;
     @FXML
-    private TextField place_txt_update;
+    private RadioButton male_radio_update;
+    @FXML
+    private RadioButton female_radio_update;
     @FXML
     private Button updateBtn;
+    @FXML
+    private ToggleGroup genderUpdate;
     ////////////////////////////////////////////////////////////////
     @FXML
     private Pane paneContainerDelete;
     @FXML
-    private TextField code_txt_delete;
+    private TextField number_txt_delete;
     @FXML
     private TextField name_txt_delete;
     @FXML
-    private TextField subject_txt_delete;
+    private TextField gender_txt_delete;
     @FXML
-    private TextField book_txt_delete;
+    private TextField living_txt_delete;
     @FXML
-    private TextField no_lecture_txt_delete;
+    private TextField department_txt_delete;
     @FXML
-    private TextField teacher_txt_delete;
-    @FXML
-    private TextField place_txt_deletet;
+    private TextField mobile_txt_delete;
     @FXML
     private Button deleteBtn;
     ///////////////////////////////////////////////////////////////
@@ -107,9 +115,13 @@ public class AssistantsController implements Initializable {
         paneContainerDelete.setVisible(false);
         deleteBtn.setDisable(true);
         updateBtn.setDisable(true);
-        no_lecture_txt.setTextFormatter(createNumericTextFormatter());
-        no_lecture_txt_delete.setTextFormatter(createNumericTextFormatter());
-        no_lecture_txt_update.setTextFormatter(createNumericTextFormatter());
+        mobile_txt.setTextFormatter(createNumericTextFormatter());
+        number_txt_delete.setTextFormatter(createNumericTextFormatter());
+        number_txt.setTextFormatter(createNumericTextFormatter());
+        mobile_txt_delete.setTextFormatter(createNumericTextFormatter());
+        number_txt_update.setTextFormatter(createNumericTextFormatter());
+        mobile_txt_update.setTextFormatter(createNumericTextFormatter());
+
     }
 
     private TextFormatter<String> createNumericTextFormatter() {
@@ -124,7 +136,7 @@ public class AssistantsController implements Initializable {
         return new TextFormatter<>(filter);
     }
 
-    public void get_courses() throws ClassNotFoundException {
+    public void get_assistants() throws ClassNotFoundException {
         tableView.getItems().clear();
         tableView.setVisible(true);
         paneContainer.setVisible(false);
@@ -132,18 +144,18 @@ public class AssistantsController implements Initializable {
         paneContainerDelete.setVisible(false);
         deleteBtn.setDisable(true);
         updateBtn.setDisable(true);
-        code.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
-        course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
-        subject.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
-        book.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
-        number_lecture.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
-        teacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(5)));
-        place.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(6)));
+        number.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        mobile.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        gender.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        living.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
+        department.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(5)));
+        password.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(6)));
         PreparedStatement pst;
         ResultSet rs = null;
         Connection conn;
 
-        String sel = "select * from mang.courses";
+        String sel = "select * from mang.assistants";
 
         try {
 
@@ -152,13 +164,13 @@ public class AssistantsController implements Initializable {
             rs = pst.executeQuery();
             while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
-                row.add(rs.getString("course_code"));
-                row.add(rs.getString("name"));
-                row.add(rs.getString("subject"));
-                row.add(rs.getString("book"));
-                row.add(rs.getString("number_lectures"));
-                row.add(rs.getString("teacher"));
-                row.add(rs.getString("place"));
+                row.add(rs.getString("assistant_number"));
+                row.add(rs.getString("full_name"));
+                row.add(rs.getString("mobile"));
+                row.add(rs.getString("gender"));
+                row.add(rs.getString("living"));
+                row.add(rs.getString("department"));
+                row.add(rs.getString("password"));
                 tableView.getItems().add(row);
             }
         } catch (SQLException ex) {
@@ -166,7 +178,7 @@ public class AssistantsController implements Initializable {
         }
     }
 
-    public void add_course() {
+    public void add_assistants() {
         tableView.setVisible(false);
         paneContainer.setVisible(true);
         paneContainerUpdate.setVisible(false);
@@ -179,27 +191,37 @@ public class AssistantsController implements Initializable {
     public void saveDate() throws ClassNotFoundException {
         PreparedStatement pst;
         Connection conn;
-        String sel = "INSERT INTO mang.courses (course_code, name, subject, book, number_lectures, teacher, place) VALUES(?, ?, ?, ?, ?, ?, ?);";
+        String sel = "INSERT INTO mang.assistants (assistant_number, full_name, gender, living, department, mobile, password) VALUES(?, ?, ?, ?, ?,? ,? );";
         try {
+            String gender_option = "";
             conn = DatabaseConnect.connDB();
             pst = conn.prepareStatement(sel);
-            int no_lect = Integer.parseInt(no_lecture_txt.getText());
-            pst.setString(1, code_txt.getText());
+            pst.setString(1, number_txt.getText());
             pst.setString(2, name_txt.getText());
-            pst.setString(3, subject_txt.getText());
-            pst.setString(4, book_txt.getText());
-            pst.setInt(5, no_lect);
-            pst.setString(6, teacher_txt.getText());
-            pst.setString(7, place_txt.getText());
+            RadioButton selectedRadioButton = (RadioButton) genderInsert.getSelectedToggle();
+        if (selectedRadioButton != null) {
+            if (selectedRadioButton == male_radio) {
+                gender_option = "Male";
+                System.out.println("Selected: Male");
+            } else if (selectedRadioButton == female_radio) {
+                gender_option = "Female";
+                System.out.println("Selected: Female");
+            }
+        }
+            pst.setString(3, gender_option);
+            pst.setString(4, living_txt.getText());
+            pst.setString(5, department_txt.getText());
+            pst.setString(6, mobile_txt.getText());
+            pst.setString(7, password_txt.getText());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "A new course has been added");
-            code_txt.setText("");
+            number_txt.setText("");
             name_txt.setText("");
-            subject_txt.setText("");
-            book_txt.setText("");
-            no_lecture_txt.setText("");
-            teacher_txt.setText("");
-            place_txt.setText("");
+            male_radio.setSelected(true);
+            living_txt.setText("");
+            department_txt.setText("");
+            mobile_txt.setText("");
+            password_txt.setText("");
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -207,7 +229,7 @@ public class AssistantsController implements Initializable {
         }
     }
 
-    public void update_course() {
+    public void update_assistants() {
         tableView.setVisible(false);
         paneContainer.setVisible(false);
         paneContainerUpdate.setVisible(true);
@@ -217,23 +239,22 @@ public class AssistantsController implements Initializable {
 
     }
 
-    public void getDataForCourse_delete() throws ClassNotFoundException {
+    public void getDataForAssistants_delete () throws ClassNotFoundException {
         Connection conn = DatabaseConnect.connDB();
         System.out.println(conn);
         PreparedStatement pst;
         ResultSet rs;
-        String log = "select * from mang.courses where course_code = ? ";
+        String log = "select * from mang.assistants where assistant_number = ? ";
         try {
             pst = conn.prepareStatement(log);
-            pst.setString(1, code_txt_delete.getText());
+            pst.setString(1, number_txt_delete.getText());
             rs = pst.executeQuery();
             if (rs.next()) {
-                name_txt_delete.setText(rs.getString("name"));
-                subject_txt_delete.setText(rs.getString("subject"));
-                book_txt_delete.setText(rs.getString("book"));
-                no_lecture_txt_delete.setText(rs.getString("number_lectures"));
-                teacher_txt_delete.setText(rs.getString("teacher"));
-                place_txt_deletet.setText(rs.getString("place"));
+                name_txt_delete.setText(rs.getString("full_name"));
+                gender_txt_delete.setText(rs.getString("gender"));
+                living_txt_delete.setText(rs.getString("living"));
+                department_txt_delete.setText(rs.getString("department"));
+                mobile_txt_delete.setText(rs.getString("mobile"));
                 deleteBtn.setDisable(false);
                 updateBtn.setDisable(true);
                 System.out.println(rs);
@@ -245,25 +266,30 @@ public class AssistantsController implements Initializable {
         }
     }
 
-    public void getDataForCourse_update() throws ClassNotFoundException {
+    public void getDataForAssistants_update() throws ClassNotFoundException {
         Connection conn = DatabaseConnect.connDB();
         System.out.println(conn);
         PreparedStatement pst;
         ResultSet rs;
-        String log = "select * from mang.courses where course_code = ? ";
+        String log = "select * from mang.assistants where assistant_number = ? ";
         try {
             pst = conn.prepareStatement(log);
-            pst.setString(1, code_txt_update.getText());
+            pst.setString(1, number_txt_update.getText());
             rs = pst.executeQuery();
             if (rs.next()) {
-                name_txt_update.setText(rs.getString("name"));
-                subject_txt_update.setText(rs.getString("subject"));
-                book_txt_update.setText(rs.getString("book"));
-                no_lecture_txt_update.setText(rs.getString("number_lectures"));
-                teacher_txt_update.setText(rs.getString("teacher"));
-                place_txt_update.setText(rs.getString("place"));
+                name_txt_update.setText(rs.getString("full_name"));
+                if("male".equals(rs.getString("gender")))
+                    male_radio_update.setSelected(true);
+                else
+                    female_radio_update.setSelected(true);
+                living_txt_update.setText(rs.getString("living"));
+                department_txt_update.setText(rs.getString("department"));
+                mobile_txt_update.setText(rs.getString("mobile"));   
+                password_txt_update.setText(rs.getString("password"));
+
                 deleteBtn.setDisable(true);
                 updateBtn.setDisable(false);
+                System.out.println(rs);
             } else {
                 JOptionPane.showMessageDialog(null, "No course has the input code");
             }
@@ -273,30 +299,39 @@ public class AssistantsController implements Initializable {
     }
 
     public void updateDate() throws ClassNotFoundException {
-        System.out.println("Integer.parseInt(no_lecture_txt.getText())  =     " + no_lecture_txt.getText());
         PreparedStatement pst;
         Connection conn;
-        String sel = "UPDATE mang.courses SET name=? , subject= ?, book= ?, number_lectures=? , teacher=? , place=? WHERE course_code=? ;";
-        int no_lect = Integer.parseInt(no_lecture_txt_update.getText());
+        String sel = "UPDATE mang.assistants SET full_name=?, gender=?, living=?, department=?, mobile=?, password=? WHERE assistant_number=?;";
         try {
+            String gender_option = "";
             conn = DatabaseConnect.connDB();
             pst = conn.prepareStatement(sel);
             pst.setString(1, name_txt_update.getText());
-            pst.setString(2, subject_txt_update.getText());
-            pst.setString(3, book_txt_update.getText());
-            pst.setInt(4, no_lect);
-            pst.setString(5, teacher_txt_update.getText());
-            pst.setString(6, place_txt_update.getText());
-            pst.setString(7, code_txt_update.getText());
+            RadioButton selectedRadioButton = (RadioButton) genderUpdate.getSelectedToggle();
+        if (selectedRadioButton != null) {
+            if (selectedRadioButton == male_radio_update) {
+                gender_option = "Male";
+                System.out.println("Selected: Male");
+            } else if (selectedRadioButton == female_radio_update) {
+                gender_option = "Female";
+                System.out.println("Selected: Female");
+            }
+        }
+            pst.setString(2, gender_option);
+            pst.setString(3, living_txt_update.getText());
+            pst.setString(4, department_txt_update.getText());
+            pst.setString(5, mobile_txt_update.getText());
+            pst.setString(6, password_txt_update.getText());
+            pst.setString(7, number_txt_update.getText());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "The data has been updated");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
-            System.err.println(ex);
+            System.out.println(ex);
         }
     }
 
-    public void delete_course() {
+    public void delete_assistants() {
         tableView.setVisible(false);
         paneContainer.setVisible(false);
         paneContainerUpdate.setVisible(false);
@@ -322,20 +357,19 @@ public class AssistantsController implements Initializable {
         if (result.isPresent() && result.get() == confirmButton) {
             PreparedStatement pst;
             Connection conn;
-            String sel = "DELETE from mang.courses WHERE course_code=?;";
+            String sel = "DELETE from mang.assistants WHERE assistant_number=?;";
             try {
                 conn = DatabaseConnect.connDB();
                 pst = conn.prepareStatement(sel);
-                pst.setString(1, code_txt_delete.getText());
+                pst.setString(1, number_txt_delete.getText());
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "The Course has been deleted");
-                code_txt_delete.setText("");
+                number_txt_delete.setText("");
                 name_txt_delete.setText("");
-                subject_txt_delete.setText("");
-                book_txt_delete.setText("");
-                no_lecture_txt_delete.setText("");
-                teacher_txt_delete.setText("");
-                place_txt_deletet.setText("");
+                gender_txt_delete.setText("");
+                living_txt_delete.setText("");
+                department_txt_delete.setText("");
+                mobile_txt_delete.setText("");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
                 System.err.println(ex);

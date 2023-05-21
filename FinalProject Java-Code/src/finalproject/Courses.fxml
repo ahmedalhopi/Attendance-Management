@@ -47,7 +47,7 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <Pane fx:id="paneContainerDelete" layoutX="50.0" layoutY="179.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;">
+      <Pane fx:id="paneContainerDelete" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;">
          <children>
             <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
                <font>
@@ -131,7 +131,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="paneContainer" layoutX="71.0" layoutY="198.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
+      <Pane fx:id="paneContainer" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
          <children>
             <Label layoutX="34.0" layoutY="25.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
                <font>
@@ -210,7 +210,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="paneContainerUpdate" layoutX="60.0" layoutY="189.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
+      <Pane fx:id="paneContainerUpdate" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
          <children>
             <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
                <font>
