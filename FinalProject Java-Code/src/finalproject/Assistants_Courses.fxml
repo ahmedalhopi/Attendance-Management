@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="794.0" prefWidth="1243.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="finalproject.Assistants_CoursesController">
+    <children>
+        <Label layoutX="289.0" layoutY="14.0" prefHeight="85.0" prefWidth="666.0" text="Assistants And Courses">
+            <font>
+                <Font name="Broadway" size="52.0" />
+            </font>
+        </Label>
+        <Button layoutX="38.0" layoutY="115.0" mnemonicParsing="false" onAction="#getAssistantsAndCoursesData" prefHeight="60.0" prefWidth="434.0" style="-fx-background-color: #4a4ce0;" text="Show Assistants And Courses" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="553.0" layoutY="115.0" mnemonicParsing="false" onAction="#linkingData" prefHeight="60.0" prefWidth="278.0" style="-fx-background-color: #50aa3d;" text="Linking" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="917.0" layoutY="115.0" mnemonicParsing="false" onAction="#unLinkingData" prefHeight="60.0" prefWidth="278.0" style="-fx-background-color: #db2929;" text="Unlinking" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tableview" layoutX="272.0" layoutY="184.0" prefHeight="589.0" prefWidth="748.0" visible="false">
+        <columns>
+          <TableColumn fx:id="id_col" prefWidth="132.0" text="#" />
+          <TableColumn fx:id="name_col" prefWidth="333.0" text="Assistant" />
+            <TableColumn fx:id="course_col" minWidth="0.0" prefWidth="282.0" text="Course" />
+        </columns>
+      </TableView>
+      <Pane fx:id="linkPane" layoutX="85.0" layoutY="197.0" prefHeight="302.0" prefWidth="1069.0" visible="false">
+         <children>
+            <Label layoutX="46.0" layoutY="37.0" prefHeight="49.0" prefWidth="222.0" text="Assistants Number">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="583.0" layoutY="41.0" prefHeight="49.0" prefWidth="198.0" text="Course Code">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="assistants_number_link" layoutX="275.0" layoutY="41.0" prefHeight="49.0" prefWidth="278.0" />
+            <TextField fx:id="course_code_link" layoutX="747.0" layoutY="45.0" prefHeight="41.0" prefWidth="278.0" />
+            <Button layoutX="412.0" layoutY="160.0" mnemonicParsing="false" onAction="#linkingAssistantsWithCourse" prefHeight="60.0" prefWidth="278.0" style="-fx-background-color: #50aa3d;" text="Linking" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="unlinkPane" layoutX="85.0" layoutY="197.0" prefHeight="302.0" prefWidth="1069.0" visible="false">
+         <children>
+            <Label layoutX="46.0" layoutY="37.0" prefHeight="49.0" prefWidth="222.0" text="Assistants Number">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="583.0" layoutY="41.0" prefHeight="49.0" prefWidth="198.0" text="Course Code">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="assistants_number_unlink" layoutX="275.0" layoutY="41.0" prefHeight="49.0" prefWidth="278.0" />
+            <TextField fx:id="course_code_unlink" layoutX="747.0" layoutY="45.0" prefHeight="41.0" prefWidth="278.0" />
+            <Button layoutX="414.0" layoutY="162.0" mnemonicParsing="false" onAction="#unlinkingAssistantsWithCourse" prefHeight="60.0" prefWidth="278.0" style="-fx-background-color: #db2929;" text="Unlinking" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>
