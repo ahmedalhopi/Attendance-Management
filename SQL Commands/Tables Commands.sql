@@ -95,4 +95,5 @@ CREATE TABLE manager (
 );
 
 /*-----------------------------------------------------------*/
+ALTER TABLE mang.assistants_courses ADD CONSTRAINT assistants_courses_un UNIQUE (assistant_number,code);
 
