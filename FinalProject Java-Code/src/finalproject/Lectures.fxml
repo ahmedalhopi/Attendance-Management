@@ -34,7 +34,7 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <Button layoutX="992.0" layoutY="80.0" mnemonicParsing="false" onAction="#delete_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #db2929;" text="Delete Course" textFill="WHITE">
+      <Button layoutX="962.0" layoutY="80.0" mnemonicParsing="false" onAction="#delete_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #db2929;" text="Delete Course" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
@@ -190,7 +190,7 @@
                   <Font size="32.0" />
                </font>
             </Button>
-            <SplitMenuButton fx:id="day_select" layoutX="749.0" layoutY="100.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="253.0" text="Choose Day" textAlignment="CENTER">
+            <SplitMenuButton fx:id="day_select" layoutX="749.0" layoutY="100.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="253.0" text="Sunday" textAlignment="CENTER">
               <items>
                 <MenuItem mnemonicParsing="Saturday" text="Saturday" />
                 <MenuItem mnemonicParsing="Sunday" text="Sunday" />
@@ -206,79 +206,19 @@
             <DatePicker fx:id="date_txt" layoutX="426.0" layoutY="266.0" prefHeight="45.0" prefWidth="262.0" />
          </children>
       </Pane>
-      <Pane fx:id="paneContainerUpdate" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
+      <Pane fx:id="paneContainerUpdate" layoutX="34.0" layoutY="180.0" prefHeight="501.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;">
          <children>
-            <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
+            <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Lecture Id" textFill="#803434">
                <font>
                   <Font size="23.0" />
                </font>
             </Label>
-            <TextField fx:id="code_txt_update" layoutX="198.0" layoutY="31.0" prefHeight="39.0" prefWidth="370.0">
+            <TextField fx:id="lectureId_txt_update" layoutX="198.0" layoutY="31.0" prefHeight="39.0" prefWidth="370.0">
                <font>
                   <Font size="21.0" />
                </font>
             </TextField>
-            <Label layoutX="50.0" layoutY="97.0" prefHeight="39.0" prefWidth="142.0" text="Course Name" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="name_txt_update" layoutX="198.0" layoutY="99.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="607.0" layoutY="99.0" prefHeight="39.0" prefWidth="142.0" text="Subject" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="subject_txt_update" layoutX="755.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="607.0" layoutY="162.0" prefHeight="39.0" prefWidth="142.0" text="No. Lectures" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="no_lecture_txt_update" layoutX="755.0" layoutY="164.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="50.0" layoutY="161.0" prefHeight="39.0" prefWidth="142.0" text="Book" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="book_txt_update" layoutX="198.0" layoutY="163.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="50.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Teacher" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="teacher_txt_update" layoutX="198.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="607.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Default Place" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="place_txt_update" layoutX="755.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Button fx:id="updateBtn" disable="true" layoutX="448.0" layoutY="339.0" mnemonicParsing="false" onAction="#updateDate" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Update" textFill="WHITE">
+            <Button fx:id="updateBtn" disable="true" layoutX="442.0" layoutY="405.0" mnemonicParsing="false" onAction="#updateDate" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Update" textFill="WHITE">
                <font>
                   <Font size="32.0" />
                </font>
@@ -288,9 +228,83 @@
                   <Font size="23.0" />
                </font>
             </Button>
+            <Label layoutX="36.0" layoutY="109.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="code_txt_update" layoutX="208.0" layoutY="103.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="613.0" layoutY="100.0" prefHeight="39.0" prefWidth="142.0" text="Lecture Title" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="title_txt_update" layoutX="761.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="36.0" layoutY="174.0" prefHeight="39.0" prefWidth="142.0" text="Place" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="place_txt_update" layoutX="208.0" layoutY="171.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="36.0" layoutY="239.0" prefHeight="39.0" prefWidth="142.0" text="Houre From" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="houre_from_txt_update" layoutX="206.0" layoutY="236.0" prefHeight="45.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="624.0" layoutY="174.0" prefHeight="39.0" prefWidth="142.0" text="Day" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="633.0" layoutY="239.0" prefHeight="39.0" prefWidth="142.0" text="Houre To" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="houre_to_txt_update" layoutX="781.0" layoutY="241.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="371.0" layoutY="321.0" prefHeight="39.0" prefWidth="142.0" text="Date" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <SplitMenuButton fx:id="day_select_update" layoutX="801.0" layoutY="174.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="253.0" text="Sunday" textAlignment="CENTER">
+               <items>
+                  <MenuItem mnemonicParsing="Saturday" text="Saturday" />
+                  <MenuItem mnemonicParsing="Sunday" text="Sunday" />
+                  <MenuItem mnemonicParsing="Monday" text="Monday" />
+                  <MenuItem mnemonicParsing="Tuesday" text="Tuesday" />
+                  <MenuItem mnemonicParsing="Wednesday" text="Wednesday" />
+                  <MenuItem mnemonicParsing="Thursday" text="Thursday" />
+               </items>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </SplitMenuButton>
+            <DatePicker fx:id="date_txt_update" layoutX="479.0" layoutY="318.0" prefHeight="45.0" prefWidth="262.0" />
          </children>
       </Pane>
-      <TableView fx:id="tableView" layoutX="23.0" layoutY="153.0" prefHeight="530.0" prefWidth="1195.0">
+      <TableView fx:id="tableView" layoutX="23.0" layoutY="153.0" prefHeight="530.0" prefWidth="1195.0" visible="false">
         <columns>
           <TableColumn fx:id="lect_id_col" prefWidth="82.0" text="Lecture Id" />
           <TableColumn fx:id="code_col" prefWidth="108.0" text="Course Code" />

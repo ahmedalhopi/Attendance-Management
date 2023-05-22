@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -69,19 +70,21 @@ public class LecturesController implements Initializable {
     @FXML
     private Pane paneContainerUpdate;
     @FXML
+    private TextField lectureId_txt_update;
+    @FXML
     private TextField code_txt_update;
     @FXML
-    private TextField name_txt_update;
-    @FXML
-    private TextField subject_txt_update;
-    @FXML
-    private TextField book_txt_update;
-    @FXML
-    private TextField no_lecture_txt_update;
-    @FXML
-    private TextField teacher_txt_update;
+    private TextField title_txt_update;
     @FXML
     private TextField place_txt_update;
+    @FXML
+    private SplitMenuButton day_select_update;
+    @FXML
+    private TextField houre_from_txt_update;
+    @FXML
+    private TextField houre_to_txt_update;
+    @FXML
+    private DatePicker date_txt_update;
     @FXML
     private Button updateBtn;
     ////////////////////////////////////////////////////////////////
@@ -116,7 +119,9 @@ public class LecturesController implements Initializable {
         houre_from_txt.setTextFormatter(createNumericTextFormatter());
         houre_to_txt.setTextFormatter(createNumericTextFormatter());
         no_lecture_txt_delete.setTextFormatter(createNumericTextFormatter());
-        no_lecture_txt_update.setTextFormatter(createNumericTextFormatter());
+        houre_from_txt_update.setTextFormatter(createNumericTextFormatter());
+        houre_to_txt_update.setTextFormatter(createNumericTextFormatter());
+        lectureId_txt_update.setTextFormatter(createNumericTextFormatter());
     }
 
     private TextFormatter<String> createNumericTextFormatter() {
@@ -189,35 +194,35 @@ public class LecturesController implements Initializable {
     }
 
     public void saveDate() throws ClassNotFoundException {
-    PreparedStatement pst;
-    Connection conn;
-    String sel = "INSERT INTO mang.lectures (course_code, title, place, day, hour_from, hour_to, date) VALUES (?, ?, ?, ?, ?, ?, to_date(?,'yyyy-mm-dd'));";
-    try {
-        conn = DatabaseConnect.connDB();
-        pst = conn.prepareStatement(sel);
-        pst.setString(1, code_txt.getText());
-        pst.setString(2, title_txt.getText());
-        pst.setString(3, place_txt.getText());
-        pst.setString(4, day_select.getText());
-        pst.setString(5, houre_from_txt.getText());
-        pst.setString(6, houre_to_txt.getText());
-        pst.setString(7, date_txt.getValue().toString());
-        pst.executeUpdate();
-        JOptionPane.showMessageDialog(null, "A new lecture has been added");
-        code_txt.setText("");
-        title_txt.setText("");
-        place_txt.setText("");
-        day_select.setText("");
-        houre_from_txt.setText("");
-        houre_to_txt.setText("");
-        date_txt.setValue(null);
+        PreparedStatement pst;
+        Connection conn;
+        String sel = "INSERT INTO mang.lectures (course_code, title, place, day, hour_from, hour_to, date) VALUES (?, ?, ?, ?, ?, ?, to_date(?,'yyyy-mm-dd'));";
+        try {
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            pst.setString(1, code_txt.getText());
+            pst.setString(2, title_txt.getText());
+            pst.setString(3, place_txt.getText());
+            pst.setString(4, day_select.getText());
+            pst.setString(5, houre_from_txt.getText());
+            pst.setString(6, houre_to_txt.getText());
+            pst.setString(7, date_txt.getValue().toString());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "A new lecture has been added");
+            code_txt.setText("");
+            title_txt.setText("");
+            place_txt.setText("");
+            day_select.setText("");
+            houre_from_txt.setText("");
+            houre_to_txt.setText("");
+            date_txt.setValue(null);
 
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, ex);
-        System.err.println(ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            System.err.println(ex);
+        }
     }
-}
-    
+
     public void update_course() {
         tableView.setVisible(false);
         paneContainer.setVisible(false);
@@ -256,27 +261,34 @@ public class LecturesController implements Initializable {
         }
     }
 
+
     public void getDataForCourse_update() throws ClassNotFoundException {
         Connection conn = DatabaseConnect.connDB();
         System.out.println(conn);
         PreparedStatement pst;
         ResultSet rs;
-        String log = "select * from mang.courses where course_code = ? ";
+        String log = "SELECT * FROM mang.lectures WHERE lecture_id = ?";
         try {
             pst = conn.prepareStatement(log);
-            pst.setString(1, code_txt_update.getText());
+            int lec_id = Integer.parseInt(lectureId_txt_update.getText());
+            pst.setInt(1, lec_id);
             rs = pst.executeQuery();
             if (rs.next()) {
-                name_txt_update.setText(rs.getString("name"));
-                subject_txt_update.setText(rs.getString("subject"));
-                book_txt_update.setText(rs.getString("book"));
-                no_lecture_txt_update.setText(rs.getString("number_lectures"));
-                teacher_txt_update.setText(rs.getString("teacher"));
+                code_txt_update.setText(rs.getString("course_code"));
+                title_txt_update.setText(rs.getString("title"));
                 place_txt_update.setText(rs.getString("place"));
+                day_select_update.setText(rs.getString("day"));
+
+                houre_from_txt_update.setText(rs.getString("hour_from"));
+                houre_to_txt_update.setText(rs.getString("hour_to"));
+
+                LocalDate date = rs.getDate("date").toLocalDate();
+                date_txt_update.setValue(date);
+
                 deleteBtn.setDisable(true);
                 updateBtn.setDisable(false);
             } else {
-                JOptionPane.showMessageDialog(null, "No course has the input code");
+                JOptionPane.showMessageDialog(null, "No lecture has the input code");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -286,23 +298,24 @@ public class LecturesController implements Initializable {
     public void updateDate() throws ClassNotFoundException {
         PreparedStatement pst;
         Connection conn;
-        String sel = "UPDATE mang.courses SET name=? , subject= ?, book= ?, number_lectures=? , teacher=? , place=? WHERE course_code=? ;";
-        int no_lect = Integer.parseInt(no_lecture_txt_update.getText());
+        String sel = "UPDATE mang.lectures SET course_code=?, title=?, place=?, day=?, hour_from=?, hour_to=?, date=to_date(?,'yyyy-mm-dd') WHERE lecture_id=?;";
         try {
             conn = DatabaseConnect.connDB();
             pst = conn.prepareStatement(sel);
-            pst.setString(1, name_txt_update.getText());
-            pst.setString(2, subject_txt_update.getText());
-            pst.setString(3, book_txt_update.getText());
-            pst.setInt(4, no_lect);
-            pst.setString(5, teacher_txt_update.getText());
-            pst.setString(6, place_txt_update.getText());
-            pst.setString(7, code_txt_update.getText());
+            pst.setString(1, code_txt_update.getText());
+            pst.setString(2, title_txt_update.getText());
+            pst.setString(3, place_txt_update.getText());
+            pst.setString(4, day_select_update.getText());
+            pst.setString(5, houre_from_txt_update.getText());
+            pst.setString(6, houre_to_txt_update.getText());
+            pst.setString(7, date_txt_update.getValue().toString());
+            int lec_id = Integer.parseInt(lectureId_txt_update.getText());
+            pst.setInt(8, lec_id);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "The data has been updated");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
-            System.err.println(ex);
+            System.out.println(ex);
         }
     }
 
