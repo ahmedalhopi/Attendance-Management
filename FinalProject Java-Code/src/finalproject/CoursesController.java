@@ -24,6 +24,7 @@ import javafx.scene.control.TextFormatter;
 import javax.swing.JOptionPane;
 import javafx.scene.layout.Pane;
 
+
 public class CoursesController implements Initializable {
 
     @FXML
