@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.LecturesController">
+       <children>
+      <Label layoutX="525.0" layoutY="14.0" prefHeight="66.0" prefWidth="224.0" text="Courses">
+         <font>
+            <Font name="Broadway" size="52.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onAction="#get_lectures" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #4a4ce0;" text="Show Courses" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="332.0" layoutY="80.0" mnemonicParsing="false" onAction="#add_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #50aa3d;" text="Add Course" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="672.0" layoutY="80.0" mnemonicParsing="false" onAction="#update_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #6a329f;" text="Update Course" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="992.0" layoutY="80.0" mnemonicParsing="false" onAction="#delete_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #db2929;" text="Delete Course" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Pane fx:id="paneContainerDelete" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
+         <children>
+            <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="code_txt_delete" layoutX="198.0" layoutY="31.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="50.0" layoutY="97.0" prefHeight="39.0" prefWidth="142.0" text="Course Name" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="name_txt_delete" editable="false" layoutX="205.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="607.0" layoutY="99.0" prefHeight="39.0" prefWidth="142.0" text="Subject" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="subject_txt_delete" editable="false" layoutX="755.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="607.0" layoutY="162.0" prefHeight="39.0" prefWidth="142.0" text="No. Lectures" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="no_lecture_txt_delete" editable="false" layoutX="755.0" layoutY="163.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="50.0" layoutY="161.0" prefHeight="39.0" prefWidth="142.0" text="Book" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="book_txt_delete" editable="false" layoutX="198.0" layoutY="163.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="50.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Teacher" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="teacher_txt_delete" editable="false" layoutX="205.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="607.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Default Place" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="place_txt_deletet" editable="false" layoutX="755.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Button fx:id="deleteBtn" disable="true" layoutX="448.0" layoutY="339.0" mnemonicParsing="false" onAction="#deleteData" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Delete" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#getDataForCourse_delete" prefHeight="45.0" prefWidth="253.0" style="-fx-background-color: #674ea7;" text="Get Data" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="paneContainer" layoutX="50.0" layoutY="180.0" prefHeight="501.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
+         <children>
+            <Label layoutX="34.0" layoutY="25.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="code_txt" layoutX="182.0" layoutY="27.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="587.0" layoutY="24.0" prefHeight="39.0" prefWidth="142.0" text="Lecture Title" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="title_txt" layoutX="735.0" layoutY="26.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="30.0" layoutY="104.0" prefHeight="39.0" prefWidth="142.0" text="Place" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="place_txt" layoutX="178.0" layoutY="106.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="30.0" layoutY="175.0" prefHeight="39.0" prefWidth="142.0" text="Houre From" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="houre_from_txt" layoutX="178.0" layoutY="177.0" prefHeight="45.0" prefWidth="354.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="587.0" layoutY="103.0" prefHeight="39.0" prefWidth="142.0" text="Day" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="587.0" layoutY="176.0" prefHeight="39.0" prefWidth="142.0" text="Houre To" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="houre_to_txt" layoutX="735.0" layoutY="178.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="318.0" layoutY="269.0" prefHeight="39.0" prefWidth="142.0" text="Date" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Button layoutX="426.0" layoutY="376.0" mnemonicParsing="false" onAction="#saveDate" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Save" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <SplitMenuButton fx:id="day_select" layoutX="749.0" layoutY="100.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="253.0" text="Choose Day" textAlignment="CENTER">
+              <items>
+                <MenuItem mnemonicParsing="Saturday" text="Saturday" />
+                <MenuItem mnemonicParsing="Sunday" text="Sunday" />
+                <MenuItem mnemonicParsing="Monday" text="Monday" />
+                <MenuItem mnemonicParsing="Tuesday" text="Tuesday" />
+                <MenuItem mnemonicParsing="Wednesday" text="Wednesday" />
+                <MenuItem mnemonicParsing="Thursday" text="Thursday" />
+              </items>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </SplitMenuButton>
+            <DatePicker fx:id="date_txt" layoutX="426.0" layoutY="266.0" prefHeight="45.0" prefWidth="262.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneContainerUpdate" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
+         <children>
+            <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="code_txt_update" layoutX="198.0" layoutY="31.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="50.0" layoutY="97.0" prefHeight="39.0" prefWidth="142.0" text="Course Name" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="name_txt_update" layoutX="198.0" layoutY="99.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="607.0" layoutY="99.0" prefHeight="39.0" prefWidth="142.0" text="Subject" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="subject_txt_update" layoutX="755.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="607.0" layoutY="162.0" prefHeight="39.0" prefWidth="142.0" text="No. Lectures" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="no_lecture_txt_update" layoutX="755.0" layoutY="164.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="50.0" layoutY="161.0" prefHeight="39.0" prefWidth="142.0" text="Book" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="book_txt_update" layoutX="198.0" layoutY="163.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="50.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Teacher" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="teacher_txt_update" layoutX="198.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="607.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Default Place" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="place_txt_update" layoutX="755.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Button fx:id="updateBtn" disable="true" layoutX="448.0" layoutY="339.0" mnemonicParsing="false" onAction="#updateDate" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Update" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#getDataForCourse_update" prefHeight="45.0" prefWidth="253.0" style="-fx-background-color: #674ea7;" text="Get Data" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <TableView fx:id="tableView" layoutX="23.0" layoutY="153.0" prefHeight="530.0" prefWidth="1195.0">
+        <columns>
+          <TableColumn fx:id="lect_id_col" prefWidth="82.0" text="Lecture Id" />
+          <TableColumn fx:id="code_col" prefWidth="108.0" text="Course Code" />
+            <TableColumn fx:id="course_col" prefWidth="201.0" text="Course" />
+            <TableColumn fx:id="lect_title_col" prefWidth="213.0" text="Lecture Tilte" />
+            <TableColumn fx:id="place_col" prefWidth="165.0" text="Place" />
+            <TableColumn fx:id="day_col" prefWidth="113.0" text="Day" />
+            <TableColumn fx:id="from_col" prefWidth="106.0" text="Houre From" />
+            <TableColumn fx:id="to_col" prefWidth="88.0" text="Houre To" />
+            <TableColumn fx:id="date_col" prefWidth="118.0" text="Date" />
+        </columns>
+      </TableView>
+   </children>
+
+</AnchorPane>

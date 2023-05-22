@@ -46,7 +46,7 @@ public class AssistantsHomeController implements Initializable {
 
     public void goAttendance() throws IOException {
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Courses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Lectures.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -60,7 +60,7 @@ public class AssistantsHomeController implements Initializable {
 
     public void goLectures() throws IOException {
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Courses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Lectures.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
