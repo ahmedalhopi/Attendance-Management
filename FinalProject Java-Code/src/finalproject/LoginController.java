@@ -42,9 +42,9 @@ public class LoginController implements Initializable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        id_number_txt.setText("M001");
-        password_txt.setText("m001");
-        admin_login.setSelected(true);
+        id_number_txt.setText("1904");
+        password_txt.setText("123");
+        admin_login.setSelected(false);
     }
 
     public void loginButtonClicked(ActionEvent actionEvent) throws ClassNotFoundException, IOException {
@@ -103,6 +103,20 @@ public class LoginController implements Initializable {
 
         } else if (found && !isAdmin) {
             System.out.println("Login Don User");
+            System.out.println("Login Don Admin");
+            Stage primaryStage = new Stage();
+            Stage currentStage = (Stage) login_btn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AssistantsHome.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Attendance Management");
+            primaryStage.setResizable(false);
+            primaryStage.iconifiedProperty();
+            Image icon = new Image(getClass().getResourceAsStream("img/icon.jpg"));
+            primaryStage.getIcons().add(icon);
+            currentStage.close();
+            primaryStage.show();
         } else {
             JOptionPane.showMessageDialog(null, "Id Number or Password is not corrcet!");
         }

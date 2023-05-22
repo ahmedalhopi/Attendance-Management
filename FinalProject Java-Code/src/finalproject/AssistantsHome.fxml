@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="595.0" prefWidth="665.0" style="-fx-background-color: 000000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.AssistantsHomeController">
+    <Label layoutX="190.0" layoutY="14.0" prefHeight="75.0" prefWidth="286.0" text="Assistants Home" textFill="#2d1ed7">
+         <font>
+            <Font name="Dubai Medium" size="40.0" />
+         </font>
+      </Label>
+   <ImageView fitHeight="164.0" fitWidth="203.0" layoutX="101.0" layoutY="172.0" onMouseClicked="#goStudents" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@img/students.png" />
+      </image>
+      <cursor>
+         <!--<Cursor fx:constant="HAND" />-->
+      </cursor>
+   </ImageView>
+   <Label layoutX="115.0" layoutY="110.0" prefHeight="62.0" prefWidth="150.0" text="Students">
+      <font>
+         <Font name="System Bold" size="34.0" />
+      </font>
+   </Label>
+   <Label layoutX="416.0" layoutY="110.0" prefHeight="62.0" prefWidth="150.0" text="Lectures">
+      <font>
+         <Font name="System Bold" size="34.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="164.0" fitWidth="203.0" layoutX="101.0" layoutY="398.0" onMouseClicked="#goAttendance" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@img/attendance.png" />
+      </image>
+      <cursor>
+         <!--<Cursor fx:constant="HAND" />-->
+      </cursor>
+   </ImageView>
+   <Label layoutX="97.0" layoutY="336.0" prefHeight="62.0" prefWidth="187.0" text="Attendance">
+      <font>
+         <Font name="System Bold" size="34.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="164.0" fitWidth="203.0" layoutX="402.0" layoutY="172.0" onMouseClicked="#goLectures" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@img/lectuers.png" />
+      </image>
+      <cursor>
+         <!--<Cursor fx:constant="HAND" />-->
+      </cursor>
+   </ImageView>
+   <ImageView fitHeight="176.0" fitWidth="177.0" layoutX="414.0" layoutY="392.0" onMouseClicked="#goReports" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@img/reports.png" />
+      </image>
+      <cursor>
+         <!--<Cursor fx:constant="HAND" />-->
+      </cursor>
+   </ImageView>
+   <Label layoutX="421.0" layoutY="336.0" prefHeight="62.0" prefWidth="135.0" text="Reports">
+      <font>
+         <Font name="System Bold" size="34.0" />
+      </font>
+   </Label>
+</AnchorPane>
