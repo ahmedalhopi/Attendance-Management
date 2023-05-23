@@ -34,12 +34,12 @@
          <Font name="System Bold" size="19.0" />
       </font>
    </Button>
-   <Button layoutX="303.0" layoutY="91.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Students Up 80% Presently" textFill="WHITE">
+   <Button layoutX="303.0" layoutY="91.0" mnemonicParsing="false" onAction="#getUp80Students" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Students Up 80% Presently" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
    </Button>
-   <Button layoutX="592.0" layoutY="91.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Students More Commited" textFill="WHITE">
+   <Button layoutX="592.0" layoutY="91.0" mnemonicParsing="false" onAction="#getStudentsMoreCommitedToLess" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Students More Commited" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
@@ -49,7 +49,7 @@
          <Font name="System Bold" size="19.0" />
       </font>
    </Button>
-   <Pane fx:id="top10Lecturs" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0">
+   <Pane fx:id="top10Lecturs" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0" visible="false">
       <children>
          <TableView fx:id="tableView_top10" layoutX="12.0" layoutY="34.0" prefHeight="536.0" prefWidth="963.0">
            <columns>
@@ -62,6 +62,48 @@
            </columns>
          </TableView>
          <Button layoutX="995.0" layoutY="55.0" mnemonicParsing="false" onAction="#top10ExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+   <Pane fx:id="studentsUp80" layoutX="13.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0" visible="false">
+      <children>
+         <TableView fx:id="tableView_up80" layoutX="14.0" layoutY="34.0" prefHeight="536.0" prefWidth="971.0">
+            <columns>
+               <TableColumn fx:id="student_number_col_up80" prefWidth="90.0" text="St.Number" />
+               <TableColumn fx:id="student_name_col_up80" prefWidth="104.0" text="Name" />
+               <TableColumn fx:id="gender_col_up80" prefWidth="82.0" text="Gender" />
+               <TableColumn fx:id="department_col_up80" prefWidth="185.0" text="Department" />
+               <TableColumn fx:id="major_col_up80" prefWidth="154.0" text="Major" />
+               <TableColumn fx:id="living_col_up80" prefWidth="144.0" text="Livin" />
+               <TableColumn fx:id="mobile_col_up80" prefWidth="130.0" text="Mobile" />
+               <TableColumn fx:id="rate_col_up80" text="Rate" />
+            </columns>
+         </TableView>
+         <Button layoutX="995.0" layoutY="55.0" mnemonicParsing="false" onAction="#studentsUp80ExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+   <Pane fx:id="studentsMoreCommited" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0">
+      <children>
+         <TableView fx:id="tableView_mor_commited" layoutX="14.0" layoutY="34.0" prefHeight="536.0" prefWidth="971.0">
+            <columns>
+               <TableColumn fx:id="student_number_col_mor_commited" prefWidth="90.0" text="St.Number" />
+               <TableColumn fx:id="student_name_col_mor_commited" prefWidth="104.0" text="Name" />
+               <TableColumn fx:id="gender_col_mor_commited" prefWidth="82.0" text="Gender" />
+               <TableColumn fx:id="department_col_mor_commited" prefWidth="185.0" text="Department" />
+               <TableColumn fx:id="major_col_mor_commited" prefWidth="154.0" text="Major" />
+               <TableColumn fx:id="living_col_mor_commited" prefWidth="144.0" text="Livin" />
+               <TableColumn fx:id="mobile_col_mor_commited" prefWidth="130.0" text="Mobile" />
+               <TableColumn fx:id="rate_col_mor_commited" text="Rate" />
+            </columns>
+         </TableView>
+         <Button layoutX="995.0" layoutY="55.0" mnemonicParsing="false" onAction="#studentsMoreCommitedExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
             <font>
                <Font name="System Bold" size="19.0" />
             </font>

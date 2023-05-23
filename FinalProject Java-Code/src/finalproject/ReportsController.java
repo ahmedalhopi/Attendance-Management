@@ -56,14 +56,60 @@ public class ReportsController implements Initializable {
     @FXML
     private TableColumn<ObservableList<String>, String> attendance_rate_col_top10;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @FXML
+    private Pane studentsUp80;
+    @FXML
+    private TableView<ObservableList<String>> tableView_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> student_number_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> student_name_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> gender_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> department_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> major_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> living_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> mobile_col_up80;
+    @FXML
+    private TableColumn<ObservableList<String>, String> rate_col_up80;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @FXML
+    private Pane studentsMoreCommited;
+    @FXML
+    private TableView<ObservableList<String>> tableView_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> student_number_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> student_name_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> gender_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> department_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> major_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> living_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> mobile_col_mor_commited;
+    @FXML
+    private TableColumn<ObservableList<String>, String> rate_col_mor_commited;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         top10Lecturs.setVisible(false);
+        studentsUp80.setVisible(false);
+        studentsMoreCommited.setVisible(false);
     }
 //////////////////////////////////////////////////////////////////////////////////  
 
     public void getTop10Lectures() throws ClassNotFoundException {
+        studentsUp80.setVisible(false);
+        studentsMoreCommited.setVisible(false);
         tableView_top10.getItems().clear();
         top10Lecturs.setVisible(true);
         lecture_id_col_top10.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
@@ -188,6 +234,7 @@ public class ReportsController implements Initializable {
             Row row = sheet.createRow(rowNum++);
             Cell cell = row.createCell(0);
             cell.setCellValue(++j);
+            cell.setCellStyle(dataStyle);
             int colNum = 1;
             for (String cellData : rowData) {
                 cell = row.createCell(colNum++);
@@ -215,4 +262,319 @@ public class ReportsController implements Initializable {
     }
 
 //////////////////////////////////////////////////////////////////////////////////
+    public void getUp80Students() throws ClassNotFoundException {
+        studentsUp80.setVisible(true);
+        studentsMoreCommited.setVisible(false);
+        tableView_up80.getItems().clear();
+        top10Lecturs.setVisible(false);
+        student_number_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        student_name_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        gender_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        department_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        major_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
+        living_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(5)));
+        mobile_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(6)));
+        rate_col_up80.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(7)));
+        PreparedStatement pst;
+        ResultSet rs;
+        Connection conn;
+
+        String sel = "SELECT s.*, (a.total_present * 100 / a.total_lectures) AS attendance_rate,(select max(sm.mobile) as mobile from mang.students_mobiles sm  where sm.student_number = s.student_number)\n"
+                + "FROM mang.students s\n"
+                + "JOIN (\n"
+                + "    SELECT student_number, COUNT(*) AS total_lectures,\n"
+                + "        SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS total_present\n"
+                + "    FROM mang.attendance\n"
+                + "    GROUP BY student_number\n"
+                + "    HAVING COUNT(*) > 0 AND (SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) * 100 / COUNT(*)) >= 80\n"
+                + ") a ON s.student_number = a.student_number;";
+
+        try {
+
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                row.add(rs.getString("student_number"));
+                row.add(rs.getString("full_name"));
+                row.add(rs.getString("gender"));
+                row.add(rs.getString("department"));
+                row.add(rs.getString("majoring"));
+                row.add(rs.getString("living"));
+                row.add(rs.getString("mobile"));
+                String rateString = rs.getString("attendance_rate") + "%";
+                row.add(rateString);
+
+                tableView_up80.getItems().add(row);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public void studentsUp80ExportExcle() {
+        String userHome = System.getProperty("user.home");
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String formattedDateTime = currentDateTime.format(formatterDate);
+        String directoryPath = userHome + "/Documents/Export Excel/Up80%Students/";
+        String filePath = directoryPath + formattedDateTime + ".xls"; // Specify the file path for the Excel file
+
+        // Create the directory if it doesn't exist
+        Path directory = Paths.get(directoryPath);
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                System.out.println("Failed to create directory: " + e);
+                return;
+            }
+        }
+
+        Workbook workbook = new HSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Data");
+
+        ObservableList<ObservableList<String>> tableData = tableView_up80.getItems();
+
+        // Add headers for each column
+        ObservableList<String> headers = FXCollections.observableArrayList(
+                "#", "Student Number", "Name", "Gender", "Department", "Major", "Living", "Mobile", "Rate");
+        Row headerRow = sheet.createRow(0);
+        for (int col = 0; col < headers.size(); col++) {
+            Cell cell = headerRow.createCell(col);
+            cell.setCellValue(headers.get(col));
+        }
+
+        // Apply header style
+        CellStyle headerStyle = workbook.createCellStyle();
+        Font headerFont = workbook.createFont();
+        headerFont.setFontHeightInPoints((short) 14);
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        for (int col = 0; col < headers.size(); col++) {
+            Cell cell = headerRow.getCell(col);
+            cell.setCellStyle(headerStyle);
+            sheet.autoSizeColumn(col);
+        }
+
+        CellStyle dataStyle = workbook.createCellStyle();
+        Font dataFont = workbook.createFont();
+        dataFont.setFontHeightInPoints((short) 12);
+        dataStyle.setFont(dataFont);
+        dataStyle.setAlignment(HorizontalAlignment.CENTER); // Set text alignment to center
+
+        dataStyle.setBorderTop(BorderStyle.THIN);
+        dataStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderRight(BorderStyle.THIN);
+        dataStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderBottom(BorderStyle.THIN);
+        dataStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderLeft(BorderStyle.THIN);
+        dataStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        int rowNum = 1; // Start from row 1, after the header row
+        int j = 0;
+        for (ObservableList<String> rowData : tableData) {
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(++j);
+            cell.setCellStyle(dataStyle);
+            int colNum = 1;
+            for (String cellData : rowData) {
+                cell = row.createCell(colNum++);
+                cell.setCellValue(cellData);
+                cell.setCellStyle(dataStyle);
+            }
+        }
+
+        int columnCount = tableView_up80.getColumns().size();
+        for (int i = 0; i < columnCount; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    public void getStudentsMoreCommitedToLess() throws ClassNotFoundException {
+        studentsMoreCommited.setVisible(true);
+        studentsUp80.setVisible(false);
+        tableView_up80.getItems().clear();
+        top10Lecturs.setVisible(false);
+        student_number_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        student_name_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        gender_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        department_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        major_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
+        living_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(5)));
+        mobile_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(6)));
+        rate_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(7)));
+        PreparedStatement pst;
+        ResultSet rs;
+        Connection conn;
+
+        String sel = "SELECT s.*, (a.total_present * 100 / a.total_lectures) AS attendance_rate, (SELECT MAX(sm.mobile) as mobile FROM mang.students_mobiles sm WHERE sm.student_number = s.student_number) AS mobile\n"
+                + "FROM mang.students s\n"
+                + "JOIN (\n"
+                + "    SELECT student_number, COUNT(*) AS total_lectures,\n"
+                + "        SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS total_present\n"
+                + "    FROM mang.attendance\n"
+                + "    GROUP BY student_number\n"
+                + "    HAVING COUNT(*) >= 0 \n"
+                + ") a ON s.student_number = a.student_number\n"
+                + "ORDER BY attendance_rate DESC;";
+
+        try {
+
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                row.add(rs.getString("student_number"));
+                row.add(rs.getString("full_name"));
+                row.add(rs.getString("gender"));
+                row.add(rs.getString("department"));
+                row.add(rs.getString("majoring"));
+                row.add(rs.getString("living"));
+                row.add(rs.getString("mobile"));
+                String rateString = rs.getString("attendance_rate") + "%";
+                row.add(rateString);
+
+                tableView_mor_commited.getItems().add(row);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public void studentsMoreCommitedExportExcle() {
+        String userHome = System.getProperty("user.home");
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String formattedDateTime = currentDateTime.format(formatterDate);
+        String directoryPath = userHome + "/Documents/Export Excel/StudentsMoreCommited/";
+        String filePath = directoryPath + formattedDateTime + ".xls"; // Specify the file path for the Excel file
+
+        // Create the directory if it doesn't exist
+        Path directory = Paths.get(directoryPath);
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                System.out.println("Failed to create directory: " + e);
+                return;
+            }
+        }
+
+        Workbook workbook = new HSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Data");
+
+        ObservableList<ObservableList<String>> tableData = tableView_mor_commited.getItems();
+
+        // Add headers for each column
+        ObservableList<String> headers = FXCollections.observableArrayList(
+                "#", "Student Number", "Name", "Gender", "Department", "Major", "Living", "Mobile", "Rate");
+        Row headerRow = sheet.createRow(0);
+        for (int col = 0; col < headers.size(); col++) {
+            Cell cell = headerRow.createCell(col);
+            cell.setCellValue(headers.get(col));
+        }
+
+        // Apply header style
+        CellStyle headerStyle = workbook.createCellStyle();
+        Font headerFont = workbook.createFont();
+        headerFont.setFontHeightInPoints((short) 14);
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        for (int col = 0; col < headers.size(); col++) {
+            Cell cell = headerRow.getCell(col);
+            cell.setCellStyle(headerStyle);
+            sheet.autoSizeColumn(col);
+        }
+
+        CellStyle dataStyle = workbook.createCellStyle();
+        Font dataFont = workbook.createFont();
+        dataFont.setFontHeightInPoints((short) 12);
+        dataStyle.setFont(dataFont);
+        dataStyle.setAlignment(HorizontalAlignment.CENTER); // Set text alignment to center
+
+        dataStyle.setBorderTop(BorderStyle.THIN);
+        dataStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderRight(BorderStyle.THIN);
+        dataStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderBottom(BorderStyle.THIN);
+        dataStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderLeft(BorderStyle.THIN);
+        dataStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        int rowNum = 1; // Start from row 1, after the header row
+        int j = 0;
+        for (ObservableList<String> rowData : tableData) {
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(++j);
+            cell.setCellStyle(dataStyle);
+            int colNum = 1;
+            for (String cellData : rowData) {
+                cell = row.createCell(colNum++);
+                cell.setCellValue(cellData);
+                cell.setCellStyle(dataStyle);
+            }
+        }
+
+        int columnCount = tableView_mor_commited.getColumns().size();
+        for (int i = 0; i < columnCount; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }
