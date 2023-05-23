@@ -60,8 +60,21 @@ public class AttendanceController implements Initializable {
         ResultSet rs;
         Connection conn;
         PreparedStatement pst;
+        
+        String sel = "INSERT INTO mang.attendance (lecture_id, student_number, student_name) select ?,s.student_number,full_name  from  mang.students s where student_number in (select st.student_number from mang.students_courses st where st.status = 'Registered' and course_code = (select l.course_code from mang.lectures l where lecture_id = ?));";
+        try {
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            int no_lect = Integer.parseInt(no_lecture_txt.getText());
+            pst.setInt(1, no_lect);
+            pst.setInt(2, no_lect);
+            pst.executeQuery();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
 
-        String sel = "SELECT  lecture_id, student_number, student_name, status FROM mang.attendance where lecture_id = ? order by status,student_number  ;";
+        sel = "SELECT  lecture_id, student_number, student_name, status FROM mang.attendance where lecture_id = ? order by status,student_number  ;";
         try {
             conn = DatabaseConnect.connDB();
             pst = conn.prepareStatement(sel);
@@ -126,7 +139,7 @@ public class AttendanceController implements Initializable {
             full_name_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
             status_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
 
-            sel = "SELECT  lecture_id, student_number, student_name, status FROM mang.attendance where lecture_id = ? order by status,student_number ;";
+            sel = "SELECT  lecture_id, student_number, student_name, status FROM mang.attendance where lecture_id = ? order by status,student_number;";
             try {
                 ResultSet rs;
                 conn = DatabaseConnect.connDB();
