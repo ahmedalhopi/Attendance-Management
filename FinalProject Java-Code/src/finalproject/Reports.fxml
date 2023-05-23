@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="846.0" prefWidth="1182.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="finalproject.ReportsController">
+    <Label layoutX="456.0" layoutY="14.0" prefHeight="66.0" prefWidth="225.0" text="Reports">
+        <font>
+            <Font name="Broadway" size="52.0" />
+        </font>
+    </Label>
+   <Button layoutX="121.0" layoutY="180.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Students" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="430.0" layoutY="180.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="290.0" style="-fx-background-color: #22a8c3;" text="Students More 25% Absently" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="751.0" layoutY="180.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Import Excle" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="14.0" layoutY="91.0" mnemonicParsing="false" onAction="#getTop10Lectures" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Top 10 Lectures Presently" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="303.0" layoutY="91.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Students Up 80% Presently" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="592.0" layoutY="91.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Students More Commited" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="881.0" layoutY="91.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Course" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Pane fx:id="top10Lecturs" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0">
+      <children>
+         <TableView fx:id="tableView_top10" layoutX="12.0" layoutY="34.0" prefHeight="536.0" prefWidth="963.0">
+           <columns>
+             <TableColumn fx:id="lecture_id_col_top10" prefWidth="79.0" text="Lecture Id" />
+             <TableColumn fx:id="course_code_col_top10" prefWidth="115.0" text="Course Code" />
+               <TableColumn fx:id="course_col_top10" prefWidth="243.0" text="Course" />
+               <TableColumn fx:id="lecture_title_col_top10" prefWidth="262.0" text="Lecture Title" />
+               <TableColumn fx:id="date_col_top10" prefWidth="120.0" text="Date" />
+               <TableColumn fx:id="attendance_rate_col_top10" prefWidth="141.0" text="Attendance Rate" />
+           </columns>
+         </TableView>
+         <Button layoutX="995.0" layoutY="55.0" mnemonicParsing="false" onAction="#top10ExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+</AnchorPane>

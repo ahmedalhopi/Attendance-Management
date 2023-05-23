@@ -74,7 +74,7 @@ public class AssistantsHomeController implements Initializable {
 
     public void goReports() throws IOException {
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Courses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Reports.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

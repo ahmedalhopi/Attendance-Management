@@ -60,7 +60,7 @@ public class AttendanceController implements Initializable {
         ResultSet rs;
         Connection conn;
         PreparedStatement pst;
-        
+
         String sel = "INSERT INTO mang.attendance (lecture_id, student_number, student_name) select ?,s.student_number,full_name  from  mang.students s where student_number in (select st.student_number from mang.students_courses st where st.status = 'Registered' and course_code = (select l.course_code from mang.lectures l where lecture_id = ?));";
         try {
             conn = DatabaseConnect.connDB();
@@ -70,9 +70,8 @@ public class AttendanceController implements Initializable {
             pst.setInt(2, no_lect);
             pst.executeQuery();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+//            JOptionPane.showMessageDialog(null, ex);
         }
-        
 
         sel = "SELECT  lecture_id, student_number, student_name, status FROM mang.attendance where lecture_id = ? order by status,student_number  ;";
         try {
@@ -95,7 +94,7 @@ public class AttendanceController implements Initializable {
 
             student_number_txt.setText(rowData[1]);
             full_name_txt.setText(rowData[2]);
-            
+
             System.out.println(dataTable);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -105,7 +104,7 @@ public class AttendanceController implements Initializable {
     public void getNextStudent() throws ClassNotFoundException {
 
         if (!dataTable.isEmpty()) {
-            
+
             RadioButton selectedRadioButton = (RadioButton) radioSelect.getSelectedToggle();
             String status_option = "";
             if (selectedRadioButton != null) {
@@ -162,6 +161,8 @@ public class AttendanceController implements Initializable {
                 student_number_txt.setText(rowData[1]);
                 full_name_txt.setText(rowData[2]);
 
+                System.out.println(LoginController.USER_ID);
+                present_radio.setSelected(true);
                 System.out.println(dataTable);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -170,4 +171,7 @@ public class AttendanceController implements Initializable {
             JOptionPane.showMessageDialog(null, "Finsed all students");
         }
     }
+
+
+
 }

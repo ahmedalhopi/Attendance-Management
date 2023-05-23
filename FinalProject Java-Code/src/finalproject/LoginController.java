@@ -24,7 +24,8 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 public class LoginController implements Initializable {
-
+    
+    public static String USER_ID;
     @FXML
     private TextField id_number_txt;
     @FXML
@@ -63,6 +64,7 @@ public class LoginController implements Initializable {
                 pst.setString(2, password_txt.getText());
                 rs = pst.executeQuery();
                 if (rs.next()) {
+                    USER_ID = id_number_txt.getText();
                     found = true;
                     isAdmin = true;
                 }
@@ -77,6 +79,7 @@ public class LoginController implements Initializable {
                 pst.setString(2, password_txt.getText());
                 rs = pst.executeQuery();
                 if (rs.next()) {
+                    USER_ID = id_number_txt.getText();
                     found = true;
                 }
             } catch (SQLException e) {

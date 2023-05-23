@@ -100,6 +100,7 @@ ALTER TABLE mang.students_mobiles ADD CONSTRAINT students_mobiles_un UNIQUE (stu
 ALTER TABLE mang.lectures ALTER COLUMN hour_from TYPE varchar USING hour_from::varchar;
 ALTER TABLE mang.lectures ALTER COLUMN hour_to TYPE varchar USING hour_to::varchar;
 ALTER TABLE mang.lectures ALTER COLUMN "date" TYPE date USING "date"::date;
+ALTER TABLE mang.attendance ADD CONSTRAINT attendance_un UNIQUE (lecture_id,student_number);
 
 
 
