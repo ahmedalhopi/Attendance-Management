@@ -24,105 +24,21 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <Button layoutX="332.0" layoutY="80.0" mnemonicParsing="false" onAction="#add_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #50aa3d;" text="Add Course" textFill="WHITE">
+      <Button layoutX="332.0" layoutY="80.0" mnemonicParsing="false" onAction="#add_lectuers" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #50aa3d;" text="Add Course" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Button layoutX="672.0" layoutY="80.0" mnemonicParsing="false" onAction="#update_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #6a329f;" text="Update Course" textFill="WHITE">
+      <Button layoutX="672.0" layoutY="80.0" mnemonicParsing="false" onAction="#update_lectuer" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #6a329f;" text="Update Course" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Button layoutX="962.0" layoutY="80.0" mnemonicParsing="false" onAction="#delete_course" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #db2929;" text="Delete Course" textFill="WHITE">
+      <Button layoutX="962.0" layoutY="80.0" mnemonicParsing="false" onAction="#delete_lecture" prefHeight="57.0" prefWidth="246.0" style="-fx-background-color: #db2929;" text="Delete Course" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Pane fx:id="paneContainerDelete" layoutX="50.0" layoutY="180.0" prefHeight="516.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
-         <children>
-            <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="code_txt_delete" layoutX="198.0" layoutY="31.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="50.0" layoutY="97.0" prefHeight="39.0" prefWidth="142.0" text="Course Name" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="name_txt_delete" editable="false" layoutX="205.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="607.0" layoutY="99.0" prefHeight="39.0" prefWidth="142.0" text="Subject" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="subject_txt_delete" editable="false" layoutX="755.0" layoutY="102.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="607.0" layoutY="162.0" prefHeight="39.0" prefWidth="142.0" text="No. Lectures" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="no_lecture_txt_delete" editable="false" layoutX="755.0" layoutY="163.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="50.0" layoutY="161.0" prefHeight="39.0" prefWidth="142.0" text="Book" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="book_txt_delete" editable="false" layoutX="198.0" layoutY="163.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="50.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Teacher" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="teacher_txt_delete" editable="false" layoutX="205.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Label layoutX="607.0" layoutY="235.0" prefHeight="39.0" prefWidth="142.0" text="Default Place" textFill="#803434">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="place_txt_deletet" editable="false" layoutX="755.0" layoutY="237.0" prefHeight="39.0" prefWidth="370.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </TextField>
-            <Button fx:id="deleteBtn" disable="true" layoutX="448.0" layoutY="339.0" mnemonicParsing="false" onAction="#deleteData" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Delete" textFill="WHITE">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Button>
-            <Button layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#getDataForCourse_delete" prefHeight="45.0" prefWidth="253.0" style="-fx-background-color: #674ea7;" text="Get Data" textFill="WHITE">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
       <Pane fx:id="paneContainer" layoutX="50.0" layoutY="180.0" prefHeight="501.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
          <children>
             <Label layoutX="34.0" layoutY="25.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
@@ -206,7 +122,7 @@
             <DatePicker fx:id="date_txt" layoutX="426.0" layoutY="266.0" prefHeight="45.0" prefWidth="262.0" />
          </children>
       </Pane>
-      <Pane fx:id="paneContainerUpdate" layoutX="34.0" layoutY="180.0" prefHeight="501.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;">
+      <Pane fx:id="paneContainerUpdate" layoutX="34.0" layoutY="168.0" prefHeight="501.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;" visible="false">
          <children>
             <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Lecture Id" textFill="#803434">
                <font>
@@ -223,7 +139,7 @@
                   <Font size="32.0" />
                </font>
             </Button>
-            <Button layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#getDataForCourse_update" prefHeight="45.0" prefWidth="253.0" style="-fx-background-color: #674ea7;" text="Get Data" textFill="WHITE">
+            <Button layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#getDataForLectuers_update" prefHeight="45.0" prefWidth="253.0" style="-fx-background-color: #674ea7;" text="Get Data" textFill="WHITE">
                <font>
                   <Font size="23.0" />
                </font>
@@ -317,6 +233,100 @@
             <TableColumn fx:id="date_col" prefWidth="118.0" text="Date" />
         </columns>
       </TableView>
+      <Pane fx:id="paneContainerDelete" layoutX="25.0" layoutY="153.0" prefHeight="501.0" prefWidth="1174.0" style="-fx-background-color: #dee1e2;">
+         <children>
+            <Label layoutX="50.0" layoutY="29.0" prefHeight="39.0" prefWidth="142.0" text="Lecture Id" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lectureId_txt_delete" layoutX="198.0" layoutY="31.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Button fx:id="deleteBtn" disable="true" layoutX="442.0" layoutY="405.0" mnemonicParsing="false" onAction="#deleteData" prefHeight="60.0" prefWidth="253.0" style="-fx-background-color: #5498d5;" text="Delete" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#getDataForLectuers_delete" prefHeight="45.0" prefWidth="253.0" style="-fx-background-color: #674ea7;" text="Get Data" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Label layoutX="36.0" layoutY="109.0" prefHeight="39.0" prefWidth="142.0" text="Course Code" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="code_txt_delete" editable="false" layoutX="208.0" layoutY="103.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="613.0" layoutY="100.0" prefHeight="39.0" prefWidth="142.0" text="Lecture Title" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="title_txt_delete" editable="false" layoutX="775.0" layoutY="103.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="36.0" layoutY="174.0" prefHeight="39.0" prefWidth="142.0" text="Place" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="place_txt_delete" editable="false" layoutX="208.0" layoutY="171.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="36.0" layoutY="239.0" prefHeight="39.0" prefWidth="142.0" text="Houre From" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="houre_from_txt_delete" editable="false" layoutX="206.0" layoutY="236.0" prefHeight="45.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="624.0" layoutY="174.0" prefHeight="39.0" prefWidth="142.0" text="Day" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="633.0" layoutY="239.0" prefHeight="39.0" prefWidth="142.0" text="Houre To" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="houre_to_txt_delete" editable="false" layoutX="775.0" layoutY="236.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <Label layoutX="371.0" layoutY="321.0" prefHeight="39.0" prefWidth="142.0" text="Date" textFill="#803434">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="day_txt_delete" editable="false" layoutX="775.0" layoutY="171.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="date_txt_delete" editable="false" layoutX="463.0" layoutY="318.0" prefHeight="39.0" prefWidth="370.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </TextField>
+         </children>
+      </Pane>
    </children>
 
 </AnchorPane>

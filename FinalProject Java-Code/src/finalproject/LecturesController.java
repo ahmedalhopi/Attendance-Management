@@ -91,19 +91,21 @@ public class LecturesController implements Initializable {
     @FXML
     private Pane paneContainerDelete;
     @FXML
+    private TextField lectureId_txt_delete;
+    @FXML
     private TextField code_txt_delete;
     @FXML
-    private TextField name_txt_delete;
+    private TextField title_txt_delete;
     @FXML
-    private TextField subject_txt_delete;
+    private TextField place_txt_delete;
     @FXML
-    private TextField book_txt_delete;
+    private TextField day_txt_delete;
     @FXML
-    private TextField no_lecture_txt_delete;
+    private TextField houre_from_txt_delete;
     @FXML
-    private TextField teacher_txt_delete;
+    private TextField houre_to_txt_delete;
     @FXML
-    private TextField place_txt_deletet;
+    private TextField date_txt_delete;
     @FXML
     private Button deleteBtn;
     ///////////////////////////////////////////////////////////////
@@ -118,7 +120,7 @@ public class LecturesController implements Initializable {
         updateBtn.setDisable(true);
         houre_from_txt.setTextFormatter(createNumericTextFormatter());
         houre_to_txt.setTextFormatter(createNumericTextFormatter());
-        no_lecture_txt_delete.setTextFormatter(createNumericTextFormatter());
+        lectureId_txt_delete.setTextFormatter(createNumericTextFormatter());
         houre_from_txt_update.setTextFormatter(createNumericTextFormatter());
         houre_to_txt_update.setTextFormatter(createNumericTextFormatter());
         lectureId_txt_update.setTextFormatter(createNumericTextFormatter());
@@ -183,7 +185,7 @@ public class LecturesController implements Initializable {
         }
     }
 
-    public void add_course() {
+    public void add_lectuers() {
         tableView.setVisible(false);
         paneContainer.setVisible(true);
         paneContainerUpdate.setVisible(false);
@@ -223,7 +225,7 @@ public class LecturesController implements Initializable {
         }
     }
 
-    public void update_course() {
+    public void update_lectuer() {
         tableView.setVisible(false);
         paneContainer.setVisible(false);
         paneContainerUpdate.setVisible(true);
@@ -233,36 +235,37 @@ public class LecturesController implements Initializable {
 
     }
 
-    public void getDataForCourse_delete() throws ClassNotFoundException {
+    public void getDataForLectuers_delete() throws ClassNotFoundException {
         Connection conn = DatabaseConnect.connDB();
         System.out.println(conn);
         PreparedStatement pst;
         ResultSet rs;
-        String log = "select * from mang.courses where course_code = ? ";
+        String log = "SELECT * FROM mang.lectures WHERE lecture_id = ?";
         try {
             pst = conn.prepareStatement(log);
-            pst.setString(1, code_txt_delete.getText());
+            int lec_id = Integer.parseInt(lectureId_txt_delete.getText());
+            pst.setInt(1, lec_id);
             rs = pst.executeQuery();
             if (rs.next()) {
-                name_txt_delete.setText(rs.getString("name"));
-                subject_txt_delete.setText(rs.getString("subject"));
-                book_txt_delete.setText(rs.getString("book"));
-                no_lecture_txt_delete.setText(rs.getString("number_lectures"));
-                teacher_txt_delete.setText(rs.getString("teacher"));
-                place_txt_deletet.setText(rs.getString("place"));
+                code_txt_delete.setText(rs.getString("course_code"));
+                title_txt_delete.setText(rs.getString("title"));
+                place_txt_delete.setText(rs.getString("place"));
+                day_txt_delete.setText(rs.getString("day"));
+                houre_from_txt_delete.setText(rs.getString("hour_from"));
+                houre_to_txt_delete.setText(rs.getString("hour_to"));
+                date_txt_delete.setText(rs.getString("date"));
+
                 deleteBtn.setDisable(false);
                 updateBtn.setDisable(true);
-                System.out.println(rs);
             } else {
-                JOptionPane.showMessageDialog(null, "No course has the input code");
+                JOptionPane.showMessageDialog(null, "No lecture has the input code");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
 
-
-    public void getDataForCourse_update() throws ClassNotFoundException {
+    public void getDataForLectuers_update() throws ClassNotFoundException {
         Connection conn = DatabaseConnect.connDB();
         System.out.println(conn);
         PreparedStatement pst;
@@ -319,7 +322,7 @@ public class LecturesController implements Initializable {
         }
     }
 
-    public void delete_course() {
+    public void delete_lecture() {
         tableView.setVisible(false);
         paneContainer.setVisible(false);
         paneContainerUpdate.setVisible(false);
@@ -332,7 +335,7 @@ public class LecturesController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete the course?");
+        alert.setContentText("Are you sure you want to delete the lecture?");
 
         ButtonType confirmButton = new ButtonType("Yes");
         ButtonType cancelButton = new ButtonType("No");
@@ -345,23 +348,24 @@ public class LecturesController implements Initializable {
         if (result.isPresent() && result.get() == confirmButton) {
             PreparedStatement pst;
             Connection conn;
-            String sel = "DELETE from mang.courses WHERE course_code=?;";
+            String sel = "DELETE from mang.lectures WHERE lecture_id=?;";
             try {
                 conn = DatabaseConnect.connDB();
                 pst = conn.prepareStatement(sel);
-                pst.setString(1, code_txt_delete.getText());
+                int lec_id = Integer.parseInt(lectureId_txt_delete.getText());
+                pst.setInt(1, lec_id);
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "The Course has been deleted");
+                JOptionPane.showMessageDialog(null, "The Lectur has been deleted");
                 code_txt_delete.setText("");
-                name_txt_delete.setText("");
-                subject_txt_delete.setText("");
-                book_txt_delete.setText("");
-                no_lecture_txt_delete.setText("");
-                teacher_txt_delete.setText("");
-                place_txt_deletet.setText("");
+                title_txt_delete.setText("");
+                place_txt_delete.setText("");
+                day_txt_delete.setText("");
+                houre_from_txt_delete.setText("");
+                houre_to_txt_delete.setText("");
+                date_txt_delete.setText("");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
-                System.err.println(ex);
+                System.out.println(ex);
             }
         }
     }
