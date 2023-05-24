@@ -171,13 +171,15 @@
       <children>
          <TableView fx:id="tableView_lectures_student" layoutX="14.0" layoutY="97.0" prefHeight="473.0" prefWidth="971.0">
             <columns>
+               <TableColumn fx:id="student_no_col_course1" prefWidth="90.0" text="St.Name" />
                <TableColumn fx:id="lect_id_col_course1" prefWidth="90.0" text="Lecture Id" />
-               <TableColumn fx:id="title_col_course1" prefWidth="184.0" text="Title" />
-               <TableColumn fx:id="place_col_course1" prefWidth="187.0" text="Place" />
-               <TableColumn fx:id="day_col_course1" prefWidth="145.0" text="Day" />
-               <TableColumn fx:id="hour_from_col_course1" prefWidth="107.0" text="Hour From" />
-               <TableColumn fx:id="hour_to_col_course1" prefWidth="128.0" text="Hour To" />
-               <TableColumn fx:id="date_col_course1" prefWidth="128.0" text="Date" />
+               <TableColumn fx:id="title_col_course1" prefWidth="152.0" text="Title" />
+               <TableColumn fx:id="place_col_course1" prefWidth="150.0" text="Place" />
+               <TableColumn fx:id="day_col_course1" prefWidth="99.0" text="Day" />
+               <TableColumn fx:id="hour_from_col_course1" prefWidth="85.0" text="Hour From" />
+               <TableColumn fx:id="hour_to_col_course1" prefWidth="77.0" text="Hour To" />
+               <TableColumn fx:id="date_col_course1" prefWidth="135.0" text="Date" />
+               <TableColumn fx:id="status_col_course1" prefWidth="92.0" text="Status" />
             </columns>
          </TableView>
          <Button layoutX="997.0" layoutY="97.0" mnemonicParsing="false" onAction="#lectuesForstudentExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">

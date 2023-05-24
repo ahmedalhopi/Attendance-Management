@@ -15,7 +15,7 @@
             <Font name="Broadway" size="52.0" />
         </font>
     </Label>
-   <Button layoutX="121.0" layoutY="180.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Students" textFill="WHITE">
+   <Button layoutX="121.0" layoutY="180.0" mnemonicParsing="false" onAction="#getLecturesStudents" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Students" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
@@ -132,17 +132,17 @@
          </Button>
       </children>
    </Pane>
-   <Pane fx:id="lecturesForCourse" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0">
+   <Pane fx:id="lecturesForCourse" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0" visible="false">
       <children>
          <TableView fx:id="tableView_lectures" layoutX="14.0" layoutY="97.0" prefHeight="473.0" prefWidth="971.0">
             <columns>
-               <TableColumn fx:id="lect_id_col_course" prefWidth="90.0" text="St.Number" />
-               <TableColumn fx:id="title_col_course" prefWidth="184.0" text="Name" />
-               <TableColumn fx:id="place_col_course" prefWidth="187.0" text="Major" />
-               <TableColumn fx:id="day_col_course" prefWidth="145.0" text="Code" />
-               <TableColumn fx:id="hour_from_col_course" prefWidth="107.0" text="Course" />
-               <TableColumn fx:id="hour_to_col_course" prefWidth="128.0" text="Total Lectures" />
-               <TableColumn fx:id="date_col_course" prefWidth="128.0" text="Total Absences" />
+               <TableColumn fx:id="lect_id_col_course" prefWidth="90.0" text="Lecture Id" />
+               <TableColumn fx:id="title_col_course" prefWidth="184.0" text="Title" />
+               <TableColumn fx:id="place_col_course" prefWidth="187.0" text="Place" />
+               <TableColumn fx:id="day_col_course" prefWidth="145.0" text="Day" />
+               <TableColumn fx:id="hour_from_col_course" prefWidth="107.0" text="Hour From" />
+               <TableColumn fx:id="hour_to_col_course" prefWidth="128.0" text="Hour To" />
+               <TableColumn fx:id="date_col_course" prefWidth="128.0" text="Date" />
             </columns>
          </TableView>
          <Button layoutX="997.0" layoutY="97.0" mnemonicParsing="false" onAction="#lectuesForCourseExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
@@ -165,6 +165,53 @@
                <Font name="System Bold" size="21.0" />
             </font>
          </Button>
+      </children>
+   </Pane>
+   <Pane fx:id="lecturesForStudent" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0">
+      <children>
+         <TableView fx:id="tableView_lectures_student" layoutX="14.0" layoutY="97.0" prefHeight="473.0" prefWidth="971.0">
+            <columns>
+               <TableColumn fx:id="student_no_col_course1" prefWidth="90.0" text="St.Name" />
+               <TableColumn fx:id="lect_id_col_course1" prefWidth="90.0" text="Lecture Id" />
+               <TableColumn fx:id="title_col_course1" prefWidth="152.0" text="Title" />
+               <TableColumn fx:id="place_col_course1" prefWidth="150.0" text="Place" />
+               <TableColumn fx:id="day_col_course1" prefWidth="99.0" text="Day" />
+               <TableColumn fx:id="hour_from_col_course1" prefWidth="85.0" text="Hour From" />
+               <TableColumn fx:id="hour_to_col_course1" prefWidth="77.0" text="Hour To" />
+               <TableColumn fx:id="date_col_course1" prefWidth="135.0" text="Date" />
+               <TableColumn fx:id="status_col_course1" prefWidth="92.0" text="Status" />
+            </columns>
+         </TableView>
+         <Button layoutX="997.0" layoutY="97.0" mnemonicParsing="false" onAction="#lectuesForstudentExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+         <Label layoutX="520.0" layoutY="27.0" prefHeight="44.0" prefWidth="160.0" text="Course Code">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <TextField fx:id="course_code_txt1" layoutX="702.0" layoutY="26.0" prefHeight="44.0" prefWidth="262.0">
+            <font>
+               <Font size="21.0" />
+            </font>
+         </TextField>
+         <Button layoutX="997.0" layoutY="26.0" mnemonicParsing="false" onAction="#getLecturesForStudent" prefHeight="45.0" prefWidth="142.0" style="-fx-background-color: #8521ac;" text="Get Data" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="21.0" />
+            </font>
+         </Button>
+         <Label layoutX="46.0" layoutY="27.0" prefHeight="44.0" prefWidth="183.0" text="Student Number">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <TextField fx:id="student_number_txt" layoutX="238.0" layoutY="26.0" prefHeight="44.0" prefWidth="262.0">
+            <font>
+               <Font size="21.0" />
+            </font>
+         </TextField>
       </children>
    </Pane>
 </AnchorPane>

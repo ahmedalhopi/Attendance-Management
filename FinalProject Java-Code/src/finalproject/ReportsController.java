@@ -150,19 +150,23 @@ public class ReportsController implements Initializable {
     @FXML
     private TableView<ObservableList<String>> tableView_lectures_student;
     @FXML
-    private TableColumn<ObservableList<String>, String> lect_id_col_course;
+    private TableColumn<ObservableList<String>, String> lect_id_col_course1;
     @FXML
-    private TableColumn<ObservableList<String>, String> title_col_course;
+    private TableColumn<ObservableList<String>, String> student_no_col_course1;
     @FXML
-    private TableColumn<ObservableList<String>, String> place_col_course;
+    private TableColumn<ObservableList<String>, String> title_col_course1;
     @FXML
-    private TableColumn<ObservableList<String>, String> day_col_course;
+    private TableColumn<ObservableList<String>, String> place_col_course1;
     @FXML
-    private TableColumn<ObservableList<String>, String> hour_from_col_course;
+    private TableColumn<ObservableList<String>, String> day_col_course1;
     @FXML
-    private TableColumn<ObservableList<String>, String> hour_to_col_course;
+    private TableColumn<ObservableList<String>, String> hour_from_col_course1;
     @FXML
-    private TableColumn<ObservableList<String>, String> date_col_course;
+    private TableColumn<ObservableList<String>, String> hour_to_col_course1;
+    @FXML
+    private TableColumn<ObservableList<String>, String> date_col_course1;
+    @FXML
+    private TableColumn<ObservableList<String>, String> status_col_course1;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -321,6 +325,7 @@ public class ReportsController implements Initializable {
 
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -482,6 +487,7 @@ public class ReportsController implements Initializable {
 
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -644,6 +650,7 @@ public class ReportsController implements Initializable {
 
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -805,6 +812,7 @@ public class ReportsController implements Initializable {
 
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -960,6 +968,7 @@ public class ReportsController implements Initializable {
 
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -982,27 +991,31 @@ public class ReportsController implements Initializable {
 
     public void getLecturesForStudent() throws ClassNotFoundException {
         tableView_lectures_student.getItems().clear();
-        lect_id_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
-        title_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
-        place_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
-        day_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
-        hour_from_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
-        hour_to_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(5)));
-        date_col_course.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(6)));
+        lect_id_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        lect_id_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        title_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        place_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        day_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
+        hour_from_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(5)));
+        hour_to_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(6)));
+        date_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(7)));
+        date_col_course1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(8)));
         PreparedStatement pst;
         ResultSet rs;
         Connection conn;
 
-        String sel = "select * from mang.lectures l where l.course_code = ?";
+        String sel = "select a.student_name , l.lecture_id ,l.title ,l.place ,l.day,l.hour_from ,l.hour_to ,l.date ,a.status  from mang.lectures l ,mang.attendance a  where l.lecture_id  = a.lecture_id and  l.course_code = ? and a.student_number = ?;";
 
         try {
 
             conn = DatabaseConnect.connDB();
             pst = conn.prepareStatement(sel);
-            pst.setString(1, course_code_txt.getText());
+            pst.setString(1, course_code_txt1.getText());
+            pst.setString(2, student_number_txt.getText());
             rs = pst.executeQuery();
             while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
+                row.add(rs.getString("student_name"));
                 row.add(rs.getString("lecture_id"));
                 row.add(rs.getString("title"));
                 row.add(rs.getString("place"));
@@ -1010,6 +1023,7 @@ public class ReportsController implements Initializable {
                 row.add(rs.getString("hour_from"));
                 row.add(rs.getString("hour_to"));
                 row.add(rs.getString("date"));
+                row.add(rs.getString("status"));
 
                 tableView_lectures_student.getItems().add(row);
             }
@@ -1044,7 +1058,7 @@ public class ReportsController implements Initializable {
 
         // Add headers for each column
         ObservableList<String> headers = FXCollections.observableArrayList(
-                "#", "Lectuer Id", "Tilte", "Place", "Day", "Hour From", "Hour To", "Date");
+                "#","Student Name", "Lectuer Id", "Tilte", "Place", "Day", "Hour From", "Hour To", "Date","Status");
         Row headerRow = sheet.createRow(0);
         for (int col = 0; col < headers.size(); col++) {
             Cell cell = headerRow.createCell(col);
@@ -1114,6 +1128,7 @@ public class ReportsController implements Initializable {
 
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
         } catch (IOException e) {
             System.out.println(e);
         }
