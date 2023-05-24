@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="846.0" prefWidth="1182.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="finalproject.ReportsController">
+<AnchorPane id="AnchorPane" prefHeight="846.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.ReportsController">
     <Label layoutX="456.0" layoutY="14.0" prefHeight="66.0" prefWidth="225.0" text="Reports">
         <font>
             <Font name="Broadway" size="52.0" />
@@ -19,7 +20,7 @@
          <Font name="System Bold" size="19.0" />
       </font>
    </Button>
-   <Button layoutX="430.0" layoutY="180.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="290.0" style="-fx-background-color: #22a8c3;" text="Students More 25% Absently" textFill="WHITE">
+   <Button layoutX="430.0" layoutY="180.0" mnemonicParsing="false" onAction="#getStudentsAbove25" prefHeight="66.0" prefWidth="290.0" style="-fx-background-color: #22a8c3;" text="Students More 25% Absently" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
@@ -44,7 +45,7 @@
          <Font name="System Bold" size="19.0" />
       </font>
    </Button>
-   <Button layoutX="881.0" layoutY="91.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Course" textFill="WHITE">
+   <Button layoutX="881.0" layoutY="91.0" mnemonicParsing="false" onAction="#getLectures" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Course" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
@@ -89,7 +90,7 @@
          </Button>
       </children>
    </Pane>
-   <Pane fx:id="studentsMoreCommited" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0">
+   <Pane fx:id="studentsMoreCommited" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0" visible="false">
       <children>
          <TableView fx:id="tableView_mor_commited" layoutX="14.0" layoutY="34.0" prefHeight="536.0" prefWidth="971.0">
             <columns>
@@ -106,6 +107,62 @@
          <Button layoutX="995.0" layoutY="55.0" mnemonicParsing="false" onAction="#studentsMoreCommitedExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
             <font>
                <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+   <Pane fx:id="above25" layoutX="11.0" layoutY="254.0" prefHeight="584.0" prefWidth="1159.0" visible="false">
+      <children>
+         <TableView fx:id="tableView_above25" layoutX="14.0" layoutY="34.0" prefHeight="536.0" prefWidth="971.0">
+            <columns>
+               <TableColumn fx:id="student_number_col_above25" prefWidth="90.0" text="St.Number" />
+               <TableColumn fx:id="student_name_col_above25" prefWidth="104.0" text="Name" />
+               <TableColumn fx:id="major_col_above25" prefWidth="154.0" text="Major" />
+               <TableColumn fx:id="code_col_above25" prefWidth="82.0" text="Code" />
+               <TableColumn fx:id="course_col_above25" prefWidth="185.0" text="Course" />
+               <TableColumn fx:id="total_lect_col_above25" prefWidth="144.0" text="Total Lectures" />
+               <TableColumn fx:id="total_abs_col_above25" prefWidth="130.0" text="Total Absences" />
+               <TableColumn fx:id="rate_col_above25" text="Rate" />
+            </columns>
+         </TableView>
+         <Button layoutX="995.0" layoutY="55.0" mnemonicParsing="false" onAction="#studentsAbove25ExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+   <Pane fx:id="lecturesForCourse" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0">
+      <children>
+         <TableView fx:id="tableView_lectures" layoutX="14.0" layoutY="97.0" prefHeight="473.0" prefWidth="971.0">
+            <columns>
+               <TableColumn fx:id="lect_id_col_course" prefWidth="90.0" text="St.Number" />
+               <TableColumn fx:id="title_col_course" prefWidth="184.0" text="Name" />
+               <TableColumn fx:id="place_col_course" prefWidth="187.0" text="Major" />
+               <TableColumn fx:id="day_col_course" prefWidth="145.0" text="Code" />
+               <TableColumn fx:id="hour_from_col_course" prefWidth="107.0" text="Course" />
+               <TableColumn fx:id="hour_to_col_course" prefWidth="128.0" text="Total Lectures" />
+               <TableColumn fx:id="date_col_course" prefWidth="128.0" text="Total Absences" />
+            </columns>
+         </TableView>
+         <Button layoutX="997.0" layoutY="97.0" mnemonicParsing="false" onAction="#lectuesForCourseExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+         <Label layoutX="37.0" layoutY="26.0" prefHeight="44.0" prefWidth="183.0" text="Course Code">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <TextField fx:id="course_code_txt" layoutX="238.0" layoutY="26.0" prefHeight="44.0" prefWidth="262.0">
+            <font>
+               <Font size="21.0" />
+            </font>
+         </TextField>
+         <Button layoutX="554.0" layoutY="26.0" mnemonicParsing="false" onAction="#getLecturesForCourse" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #8521ac;" text="Get Data" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="21.0" />
             </font>
          </Button>
       </children>
