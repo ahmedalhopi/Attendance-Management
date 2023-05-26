@@ -1,5 +1,8 @@
 package finalproject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import org.apache.poi.ss.usermodel.*;
@@ -168,6 +172,7 @@ public class ReportsController implements Initializable {
     @FXML
     private TableColumn<ObservableList<String>, String> status_col_course1;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         top10Lecturs.setVisible(false);
@@ -980,6 +985,7 @@ public class ReportsController implements Initializable {
         }
     }
 //////////////////////////////////////////////////////////////////////////////////////////
+
     public void getLecturesStudents() {
         studentsMoreCommited.setVisible(false);
         above25.setVisible(false);
@@ -1058,7 +1064,7 @@ public class ReportsController implements Initializable {
 
         // Add headers for each column
         ObservableList<String> headers = FXCollections.observableArrayList(
-                "#","Student Name", "Lectuer Id", "Tilte", "Place", "Day", "Hour From", "Hour To", "Date","Status");
+                "#", "Student Name", "Lectuer Id", "Tilte", "Place", "Day", "Hour From", "Hour To", "Date", "Status");
         Row headerRow = sheet.createRow(0);
         for (int col = 0; col < headers.size(); col++) {
             Cell cell = headerRow.createCell(col);
@@ -1139,7 +1145,63 @@ public class ReportsController implements Initializable {
             System.out.println(e);
         }
     }
-    
-    
-    
+
+    public void importExcle() throws FileNotFoundException, IOException {
+            FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xls"));
+    File selectedFile = fileChooser.showOpenDialog(null);
+
+    if (selectedFile != null) {
+        try (FileInputStream fileInputStream = new FileInputStream(selectedFile);
+             HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
+             Connection conn = DatabaseConnect.connDB();
+             PreparedStatement pst = conn.prepareStatement("INSERT INTO mang.attendance (lecture_id, student_number, student_name, student_mobile, status) VALUES (?, ?, ?, ?, ?)")) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+            int rowCount = sheet.getLastRowNum();
+
+            for (int i = 0; i <= rowCount; i++) {
+                Row row = sheet.getRow(i);
+                int columnCount = row.getLastCellNum();
+
+                int lectureId = 0;
+                String[] rowData = new String[columnCount];
+
+                for (int j = 0; j < columnCount; j++) {
+                    Cell cell = row.getCell(j);
+
+                    if (cell.getCellType() == CellType.NUMERIC) {
+                        if (j == 0) {
+                            lectureId = (int) cell.getNumericCellValue();
+                        } else {
+                            rowData[j] = String.valueOf(cell.getNumericCellValue());
+                        }
+                    } else if (cell.getCellType() == CellType.STRING) {
+                        rowData[j] = cell.getStringCellValue();
+                    }
+                }
+
+                pst.setInt(1, lectureId);
+                pst.setString(2, rowData[1]);
+                pst.setString(3, rowData[2]);
+                pst.setString(4, rowData[3]);
+                pst.setString(5, rowData[4]);
+                pst.executeUpdate();
+            }
+
+            System.out.println("Data imported successfully!");
+            JOptionPane.showMessageDialog(null, "Data imported successfully!");
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e);
+        } catch (IOException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+//            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    }
 }
