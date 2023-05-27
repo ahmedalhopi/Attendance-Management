@@ -101,6 +101,7 @@ ALTER TABLE mang.lectures ALTER COLUMN hour_from TYPE varchar USING hour_from::v
 ALTER TABLE mang.lectures ALTER COLUMN hour_to TYPE varchar USING hour_to::varchar;
 ALTER TABLE mang.lectures ALTER COLUMN "date" TYPE date USING "date"::date;
 ALTER TABLE mang.attendance ADD CONSTRAINT attendance_un UNIQUE (lecture_id,student_number);
+ALTER TABLE mang.students_courses ADD CONSTRAINT students_courses_un UNIQUE (student_number,course_code);
 
 
 
