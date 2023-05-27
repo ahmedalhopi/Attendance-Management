@@ -1,19 +1,29 @@
 # Attendance-Management
 
-This is a sample project that demonstrates the basic structure of a README file.
-
-## Description
-
-The project aims to showcase the key elements and sections typically found in a README file. It provides an example structure that can be used as a starting point for documenting your own projects.
+A project in Java and PostgreSQL databases to manage attendance and absence at the university.
 
 ## Installation
 
 To install and run the project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/username/project.git`
-2. Navigate to the project directory: `cd project`
-3. Install dependencies: `npm install`
-4. Start the application: `npm start`
+1. You need netbeans ide to run it correctlly.
+2. Install postgreSQL database.
+3. Open the project from netbeans ide.
+4. Create new connection with database from services.
+5. Right click on DataBase->NewConnection.
+6. In driver select last option New Driver->Add.
+7. Select the drivar file .jar from folder project->Driver->postgresql-42.6.0.jar then click ok then Next.
+8. Write the database that you want to connect it.
+9. set user postgres and password that you write it when you install the database.
+10. then select schema that you must create a new schema that name "mang" to run the program correctlly then finish.
+
+
+## Edit The Project
+
+1. Go to DatabaseConnect.java to edit sitting for connection.
+2. The url update value from your connection ,click rhigt on connection Properties->DataBase URL and copy it.
+3. username set postgres and password that you write it when you install the database.
+
 
 ## Usage
 
