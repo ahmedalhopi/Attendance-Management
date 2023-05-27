@@ -1,5 +1,6 @@
 package finalproject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,12 +11,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 public class AttendanceController implements Initializable {
@@ -172,6 +178,17 @@ public class AttendanceController implements Initializable {
         }
     }
 
-
-
+    public void goToStudentsAndCourses() throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Attendance Management");
+        primaryStage.setResizable(false);
+        primaryStage.iconifiedProperty();
+        Image icon = new Image(getClass().getResourceAsStream("img/icon.jpg"));
+        primaryStage.getIcons().add(icon);
+        primaryStage.show();
+    }
 }

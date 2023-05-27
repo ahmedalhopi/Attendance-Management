@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="871.0" prefWidth="1265.0" style="-fx-background-color: 000000;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="finalproject.AttendanceController">
+<AnchorPane id="AnchorPane" prefHeight="871.0" prefWidth="1265.0" style="-fx-background-color: 000000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.AttendanceController">
     <Label layoutX="460.0" layoutY="21.0" prefHeight="66.0" prefWidth="345.0" text="Attendance">
         <font>
             <Font name="Broadway" size="52.0" />
@@ -77,4 +77,9 @@
          <TableColumn fx:id="status_col" prefWidth="198.0" text="Status" />
      </columns>
    </TableView>
+   <Button layoutX="995.0" layoutY="40.0" mnemonicParsing="false" onAction="#goToStudentsAndCourses" prefHeight="66.0" prefWidth="246.0" style="-fx-background-color: #06c4e8;" text="Students And Courses" textFill="WHITE">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Button>
 </AnchorPane>
