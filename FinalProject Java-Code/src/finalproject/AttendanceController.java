@@ -21,10 +21,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 public class AttendanceController implements Initializable {
+    
+    @FXML
+    private Pane attendance;
 
     @FXML
     private TableView<ObservableList<String>> tableView;
@@ -49,11 +53,33 @@ public class AttendanceController implements Initializable {
     @FXML
     private ToggleGroup radioSelect;
 
+    @FXML
+    private Pane updatePane;
+    @FXML
+    private TextField lecture_id_txt8;
+    @FXML
+    private TextField student_number_txt8;
+    @FXML
+    private RadioButton present_radio8;
+    @FXML
+    private RadioButton absent_radio8;
+    @FXML
+    private ToggleGroup radioSelect8;
+
+    
+    
+    
     ObservableList<ObservableList<String>> dataTable = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        attendance.setVisible(false);
+        updatePane.setVisible(false);
+    }
+    
+    public void goToAttendance()  {
+        attendance.setVisible(true);
+        updatePane.setVisible(false);
     }
 
     public void getStudentsForLecture() throws ClassNotFoundException {
@@ -191,4 +217,49 @@ public class AttendanceController implements Initializable {
         primaryStage.getIcons().add(icon);
         primaryStage.show();
     }
+    
+    public void updatePresentForStudent()  {
+        updatePane.setVisible(true);
+        attendance.setVisible(false);
+    }
+
+    public void updateDataForStudent() throws ClassNotFoundException{
+        
+        RadioButton selectedRadioButton = (RadioButton) radioSelect8.getSelectedToggle();
+            String status_option = "";
+            if (selectedRadioButton != null) {
+                if (selectedRadioButton == present_radio8) {
+                    status_option = "Present";
+                    System.out.println("Selected: Present");
+                } else if (selectedRadioButton == absent_radio8) {
+                    status_option = "Absent";
+                    System.out.println("Selected: Absent");
+                }
+            }
+        PreparedStatement pst;
+            Connection conn;
+            String sel = "UPDATE mang.attendance SET  status = ? WHERE student_number = ? and lecture_id = ?;";
+            try {
+                conn = DatabaseConnect.connDB();
+                pst = conn.prepareStatement(sel);
+                pst.setString(1, status_option);
+                pst.setString(2, student_number_txt8.getText());
+                int no_lect = Integer.parseInt(lecture_id_txt8.getText());
+                pst.setInt(3, no_lect);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Update Don");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+                System.out.println(ex);
+            }
+    }
+
+
+
+
+
+
+
+
+
 }
