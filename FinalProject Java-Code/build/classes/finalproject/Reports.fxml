@@ -15,17 +15,12 @@
             <Font name="Broadway" size="52.0" />
         </font>
     </Label>
-   <Button layoutX="121.0" layoutY="180.0" mnemonicParsing="false" onAction="#getLecturesStudents" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Students" textFill="WHITE">
+   <Button layoutX="14.0" layoutY="180.0" mnemonicParsing="false" onAction="#getLecturesStudents" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Lectures For Students" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
    </Button>
-   <Button layoutX="430.0" layoutY="180.0" mnemonicParsing="false" onAction="#getStudentsAbove25" prefHeight="66.0" prefWidth="290.0" style="-fx-background-color: #22a8c3;" text="Students More 25% Absently" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="19.0" />
-      </font>
-   </Button>
-   <Button layoutX="751.0" layoutY="180.0" mnemonicParsing="false" onAction="#importExcle" prefHeight="66.0" prefWidth="275.0" style="-fx-background-color: #22a8c3;" text="Import Excle" textFill="WHITE">
+   <Button layoutX="303.0" layoutY="180.0" mnemonicParsing="false" onAction="#getStudentsAbove25" prefHeight="66.0" prefWidth="286.0" style="-fx-background-color: #22a8c3;" text="Students More 25% Absently" textFill="WHITE">
       <font>
          <Font name="System Bold" size="19.0" />
       </font>
@@ -167,7 +162,7 @@
          </Button>
       </children>
    </Pane>
-   <Pane fx:id="lecturesForStudent" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0">
+   <Pane fx:id="lecturesForStudent" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0" visible="false">
       <children>
          <TableView fx:id="tableView_lectures_student" layoutX="14.0" layoutY="97.0" prefHeight="473.0" prefWidth="971.0">
             <columns>
@@ -214,4 +209,47 @@
          </TextField>
       </children>
    </Pane>
+   <Pane fx:id="studntsLecture" layoutX="13.0" layoutY="253.0" prefHeight="577.0" prefWidth="1159.0">
+      <children>
+         <TableView fx:id="tableView_students_lecture" layoutX="14.0" layoutY="97.0" prefHeight="473.0" prefWidth="971.0">
+            <columns>
+               <TableColumn fx:id="course_col8" prefWidth="204.0" text="Cours" />
+               <TableColumn fx:id="student_number_col8" prefWidth="186.0" text="Student Number" />
+               <TableColumn fx:id="student_name_col8" prefWidth="305.0" text="Student Name" />
+               <TableColumn fx:id="mobile_col8" prefWidth="162.0" text="Mobile" />
+               <TableColumn fx:id="status_col8" prefWidth="113.0" text="Status" />
+            </columns>
+         </TableView>
+         <Button layoutX="997.0" layoutY="97.0" mnemonicParsing="false" onAction="#lectureReportExportExcle" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #3b9a36;" text="Excle Export" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </Button>
+         <Label layoutX="118.0" layoutY="27.0" prefHeight="44.0" prefWidth="160.0" text="Lecture Title">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <TextField fx:id="lecture_title_txt" layoutX="300.0" layoutY="26.0" prefHeight="45.0" prefWidth="502.0">
+            <font>
+               <Font size="21.0" />
+            </font>
+         </TextField>
+         <Button layoutX="828.0" layoutY="26.0" mnemonicParsing="false" onAction="#getReportFromLectureTitle" prefHeight="45.0" prefWidth="142.0" style="-fx-background-color: #8521ac;" text="Get Data" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="21.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+   <Button layoutX="891.0" layoutY="180.0" mnemonicParsing="false" onAction="#importExcle" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #22a8c3;" text="Import Excle" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
+   <Button layoutX="602.0" layoutY="180.0" mnemonicParsing="false" onAction="#getStudentsForCourse" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #22a8c3;" text="Import Excle" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="19.0" />
+      </font>
+   </Button>
 </AnchorPane>

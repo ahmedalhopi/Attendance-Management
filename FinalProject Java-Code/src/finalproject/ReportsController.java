@@ -171,6 +171,23 @@ public class ReportsController implements Initializable {
     private TableColumn<ObservableList<String>, String> date_col_course1;
     @FXML
     private TableColumn<ObservableList<String>, String> status_col_course1;
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @FXML
+    private Pane studntsLecture;
+    @FXML
+    private TextField lecture_title_txt;
+    @FXML
+    private TableView<ObservableList<String>> tableView_students_lecture;
+    @FXML
+    private TableColumn<ObservableList<String>, String> course_col8;
+    @FXML
+    private TableColumn<ObservableList<String>, String> student_number_col8;
+    @FXML
+    private TableColumn<ObservableList<String>, String> student_name_col8;
+    @FXML
+    private TableColumn<ObservableList<String>, String> mobile_col8;
+    @FXML
+    private TableColumn<ObservableList<String>, String> status_col8;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -181,11 +198,13 @@ public class ReportsController implements Initializable {
         above25.setVisible(false);
         lecturesForCourse.setVisible(false);
         lecturesForStudent.setVisible(false);
+        studntsLecture.setVisible(false);
     }
 //////////////////////////////////////////////////////////////////////////////////  
 
     public void getTop10Lectures() throws ClassNotFoundException {
         above25.setVisible(false);
+        studntsLecture.setVisible(false);
         lecturesForCourse.setVisible(false);
         studentsUp80.setVisible(false);
         lecturesForStudent.setVisible(false);
@@ -348,6 +367,7 @@ public class ReportsController implements Initializable {
         lecturesForCourse.setVisible(false);
         studentsMoreCommited.setVisible(false);
         lecturesForStudent.setVisible(false);
+        studntsLecture.setVisible(false);
         above25.setVisible(false);
         tableView_up80.getItems().clear();
         top10Lecturs.setVisible(false);
@@ -511,6 +531,7 @@ public class ReportsController implements Initializable {
         lecturesForStudent.setVisible(false);
         lecturesForCourse.setVisible(false);
         above25.setVisible(false);
+        studntsLecture.setVisible(false);
         tableView_up80.getItems().clear();
         top10Lecturs.setVisible(false);
         student_number_col_mor_commited.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
@@ -672,6 +693,7 @@ public class ReportsController implements Initializable {
         studentsMoreCommited.setVisible(false);
         above25.setVisible(true);
         lecturesForStudent.setVisible(false);
+        studntsLecture.setVisible(false);
         lecturesForCourse.setVisible(false);
         studentsUp80.setVisible(false);
         tableView_above25.getItems().clear();
@@ -834,6 +856,7 @@ public class ReportsController implements Initializable {
         studentsMoreCommited.setVisible(false);
         above25.setVisible(false);
         studentsUp80.setVisible(false);
+        studntsLecture.setVisible(false);
         lecturesForStudent.setVisible(false);
         top10Lecturs.setVisible(false);
         lecturesForCourse.setVisible(true);
@@ -990,6 +1013,7 @@ public class ReportsController implements Initializable {
         studentsMoreCommited.setVisible(false);
         above25.setVisible(false);
         studentsUp80.setVisible(false);
+        studntsLecture.setVisible(false);
         top10Lecturs.setVisible(false);
         lecturesForCourse.setVisible(false);
         lecturesForStudent.setVisible(true);
@@ -1146,6 +1170,163 @@ public class ReportsController implements Initializable {
         }
     }
 
+   //////////////////////////////////////////////////////////////////////////////////////////
+
+    public void getStudentsForCourse() {
+        studentsMoreCommited.setVisible(false);
+        above25.setVisible(false);
+        studentsUp80.setVisible(false);
+        top10Lecturs.setVisible(false);
+        lecturesForCourse.setVisible(false);
+        lecturesForStudent.setVisible(false);
+        studntsLecture.setVisible(true);
+    }
+
+    public void getReportFromLectureTitle() throws ClassNotFoundException {
+        tableView_students_lecture.getItems().clear();
+        course_col8.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        student_number_col8.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        student_name_col8.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        mobile_col8.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        status_col8.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
+ 
+        PreparedStatement pst;
+        ResultSet rs;
+        Connection conn;
+
+        String sel = "select (select name from mang.courses c where c.course_code = l.course_code), student_number, student_name, student_mobile, status FROM mang.attendance a, mang.lectures l where a.lecture_id = l.lecture_id and l.title = ?;";
+
+        try {
+
+            conn = DatabaseConnect.connDB();
+            pst = conn.prepareStatement(sel);
+            pst.setString(1, lecture_title_txt.getText());
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                row.add(rs.getString("name"));
+                row.add(rs.getString("student_number"));
+                row.add(rs.getString("student_name"));
+                row.add(rs.getString("student_mobile"));
+                row.add(rs.getString("status"));
+
+                tableView_students_lecture.getItems().add(row);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public void lectureReportExportExcle() {
+        String userHome = System.getProperty("user.home");
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String formattedDateTime = currentDateTime.format(formatterDate);
+        String directoryPath = userHome + "/Documents/Export Excel/StudentsInLecture/";
+        String filePath = directoryPath + formattedDateTime + ".xls"; // Specify the file path for the Excel file
+
+        // Create the directory if it doesn't exist
+        Path directory = Paths.get(directoryPath);
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                System.out.println("Failed to create directory: " + e);
+                return;
+            }
+        }
+
+        Workbook workbook = new HSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Data");
+
+        ObservableList<ObservableList<String>> tableData = tableView_students_lecture.getItems();
+
+        // Add headers for each column
+        ObservableList<String> headers = FXCollections.observableArrayList(
+                "#", "Course Name", "Student Number", "Student Name", "Mobile", "Status");
+        Row headerRow = sheet.createRow(0);
+        for (int col = 0; col < headers.size(); col++) {
+            Cell cell = headerRow.createCell(col);
+            cell.setCellValue(headers.get(col));
+        }
+
+        // Apply header style
+        CellStyle headerStyle = workbook.createCellStyle();
+        Font headerFont = workbook.createFont();
+        headerFont.setFontHeightInPoints((short) 14);
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        for (int col = 0; col < headers.size(); col++) {
+            Cell cell = headerRow.getCell(col);
+            cell.setCellStyle(headerStyle);
+            sheet.autoSizeColumn(col);
+        }
+
+        CellStyle dataStyle = workbook.createCellStyle();
+        Font dataFont = workbook.createFont();
+        dataFont.setFontHeightInPoints((short) 12);
+        dataStyle.setFont(dataFont);
+        dataStyle.setAlignment(HorizontalAlignment.CENTER); // Set text alignment to center
+
+        dataStyle.setBorderTop(BorderStyle.THIN);
+        dataStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderRight(BorderStyle.THIN);
+        dataStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderBottom(BorderStyle.THIN);
+        dataStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        dataStyle.setBorderLeft(BorderStyle.THIN);
+        dataStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        int rowNum = 1; // Start from row 1, after the header row
+        int j = 0;
+        for (ObservableList<String> rowData : tableData) {
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(++j);
+            cell.setCellStyle(dataStyle);
+            int colNum = 1;
+            for (String cellData : rowData) {
+                cell = row.createCell(colNum++);
+                cell.setCellValue(cellData);
+                cell.setCellStyle(dataStyle);
+                sheet.autoSizeColumn(colNum);
+            }
+        }
+
+        int columnCount = tableView_students_lecture.getColumns().size();
+        for (int i = 0; i < columnCount; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Excle Exported Don.");
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+ 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
     public void importExcle() throws FileNotFoundException, IOException {
             FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xls"));
