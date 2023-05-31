@@ -31,3 +31,6 @@ To install and run the project, follow these steps:
 2. create new schema that name must be "mang".
 3. create the tables that sql for these in project folder->SQL Commands->Tables Commands.sql.
 4. then you can insert a data to test the program from project folder->SQL Commands->Data Insert.sql.
+
+# General Explanation Video Of The Project 
+<a href = "https://drive.google.com/file/d/1Ty_zaK3WvUd1VbVHvBa6cLIS2RysOHGR/view?usp=drive_link"> From Here </a>
